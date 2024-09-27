@@ -37,7 +37,7 @@ function Products() {
 
   const addToCart = (product) => {
     if (!isAuthenticated) {
-      toast.error("Login is required before adding to cart");
+      toast.error("You need to log in");
       return;
     }
     if (productIds.includes(product._id)) {

@@ -16,14 +16,28 @@ import PersonIcon from "@mui/icons-material/Person";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import SearchItem from "../SearchItem";
+import Badge from "@mui/material/Badge";
+import { getCart } from "../../features/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+
 const pages = ["Home", "Shop"];
 
 function MainHeader() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElCart, setAnchorElCart] = React.useState(null);
 
   const { isAuthenticated, logout } = useAuth();
+  const { items } = useSelector((state) => state.cart);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(getCart());
+    }
+  }, [dispatch, isAuthenticated,]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -36,6 +50,12 @@ function MainHeader() {
   };
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+  const handleOpenCartMenu = (event) => {
+    setAnchorElCart(event.currentTarget);
+  };
+  const handleCloseCartMenu = () => {
+    setAnchorElCart(null);
   };
 
   const handleLogout = async () => {
@@ -126,9 +146,117 @@ function MainHeader() {
 
           <SearchItem />
 
-          <IconButton sx={{ color: "#fff", ml: "10px", mr: "10px" }}>
-            <ShoppingCartIcon />
+          {/* icon shopping cart button */}
+          <IconButton
+            sx={{ color: "#fff", ml: "10px", mr: "10px" }}
+            onClick={handleOpenCartMenu}
+          >
+            <Badge
+              badgeContent={isAuthenticated ? items.length : 0}
+              color="error"
+            >
+              <ShoppingCartIcon />
+            </Badge>
           </IconButton>
+          {/* list shopping cart */}
+          <Menu
+            sx={{ mt: "45px" }}
+            id="menu-cart"
+            anchorEl={anchorElCart}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={Boolean(anchorElCart)}
+            onClose={handleCloseCartMenu}
+          >
+            {isAuthenticated && items.length > 0 ? (
+              <Box>
+                {items.map((item) => (
+                  <MenuItem
+                    key={item._id}
+                    onClick={handleCloseCartMenu}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      padding: 1,
+                      width: "400px",
+                    }}
+                  >
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <img
+                        src={item.product.image_url}
+                        alt={item.product.name}
+                        style={{ width: 100, height: 60, marginRight: 10 }}
+                      />
+                      <Box>
+                        <Typography variant="body1">
+                          {item.product.name}
+                        </Typography>
+                        <Typography variant="body2" >
+                          Qty: {item.quantity}
+                        </Typography>
+                        <Typography variant="body2" fontWeight="bold">
+                          ${item.product.price}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </MenuItem>
+                ))}
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    padding: 2,
+                  }}
+                >
+                  <Typography variant="h6">Total:</Typography>
+                  <Typography variant="h6">
+                    $
+                    {items.reduce(
+                      (total, item) =>
+                        total + item.product.price * item.quantity,
+                      0
+                    )}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    padding: 2,
+                  }}
+                >
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    sx={{ marginRight: 1 }}
+                    onClick={() => navigate("/cart")}
+                  >
+                    View Cart
+                  </Button>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    color="primary"
+                    onClick={() => navigate("/checkout")}
+                  >
+                    Checkout
+                  </Button>
+                </Box>
+              </Box>
+            ) : (
+              <MenuItem onClick={handleCloseCartMenu}>
+                <Typography textAlign="center">Your cart is empty</Typography>
+              </MenuItem>
+            )}
+          </Menu>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
