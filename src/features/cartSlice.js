@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import apiService from "../app/apiService";
 import { toast } from "react-toastify";
 
+
 const initialState = {
   items: [],
   isLoading: false,
@@ -30,49 +31,63 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.items = action.payload.items;
-      state.productIds = action.payload.items.map(item => item.product._id);
+      state.productIds = action.payload.items.map((item) => item.product._id);
     },
-    deleteCartSuccess(state,action){
-
-    }
+    deleteCartSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const itemId = action.payload;
+      state.items = state.items.filter((item) => item._id !== itemId);
+    },
   },
 });
 
 export const handleAddToCart =
-  ({ productId }) =>
+  ({ productId, quantity, userId }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
+    console.log("cart slice 49",userId)
     try {
-      const response = await apiService.post("/cart/items", { productId });
+      const response = await apiService.post("/cart/items", {
+        productId,
+        quantity,
+        userId,
+      });
+      console.log(response);
       dispatch(slice.actions.addToCartSuccess(response.data.data.cartItem));
-      dispatch(getCart())
+      dispatch(getCart());
       toast.success("The product has been added to the cart");
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }
   };
 
-  export const getCart = () => async (dispatch) => {
+export const getCart = () => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const response = await apiService.get("/shoppingcart");
+    console.log("shoppingcart", response.data.data);
+    dispatch(slice.actions.getCartSuccess(response.data.data));
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+    toast.error(error.message);
+  }
+};
+
+export const deleteCart =
+  ({ cartItemId }) =>
+  async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await apiService.get("/shoppingcart");
-      dispatch(slice.actions.getCartSuccess(response.data.data));
-      console.log("shoppingcart",response.data.data)
+      const response = await apiService.delete("/cart/items", {
+        data: { cartItemId },
+      });
+
+      dispatch(slice.actions.deleteCartSuccess(response.data.data._id));
+      dispatch(getCart());
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
-      toast.error(error.message);
     }
   };
-
-  export const deleteCart = ({ cartItemId }) => async(dispatch) => {
-    dispatch(slice.actions.startLoading())
-    try {
-      const response = await apiService.delete("/cart/items", {cartItemId})
-      dispatch(slice.actions.deleteCartSuccess(response.data.data))
-      dispatch(getCart())
-    } catch (error) {
-      dispatch(slice.actions.hasError(error.message))
-    }
-  }
 
 export default slice.reducer;

@@ -10,7 +10,6 @@ function TopCategory() {
     const fetchCategories = async () => {
       try {
         const response = await apiService.get("/categories");
-        console.log(response.data.data);
         setCategories(response.data.data);
       } catch (error) {
         console.log(error);

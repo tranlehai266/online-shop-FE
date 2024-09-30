@@ -13,7 +13,13 @@ function App() {
       <BrowserRouter>
         <ThemeProvider>
           <Router />
-          <ToastContainer />
+          <ToastContainer
+            theme="dark"
+            toastStyle={{
+              backgroundColor: "#242424",
+              color: "#fff",
+            }}
+          />
         </ThemeProvider>
       </BrowserRouter>
     </AuthProvider>

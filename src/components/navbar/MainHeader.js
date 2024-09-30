@@ -17,9 +17,10 @@ import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import SearchItem from "../SearchItem";
 import Badge from "@mui/material/Badge";
-import { getCart } from "../../features/cartSlice";
+import { deleteCart, getCart } from "../../features/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { Stack } from "@mui/material";
 
 const pages = ["Home", "Shop"];
 
@@ -32,12 +33,15 @@ function MainHeader() {
   const { items } = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   useEffect(() => {
     if (isAuthenticated) {
       dispatch(getCart());
     }
-  }, [dispatch, isAuthenticated,]);
+  }, [dispatch, isAuthenticated]);
+
+  const handleDelete = (item) => {
+    dispatch(deleteCart({ cartItemId: item }));
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -62,19 +66,18 @@ function MainHeader() {
     await logout(() => {
       handleCloseUserMenu();
       toast.success("Logout Success");
-      navigate("/");
     });
   };
 
   return (
-    <AppBar sx={{ backgroundColor: "transparent", boxShadow: "none" }}>
-      <Container maxWidth="xl">
+    <AppBar sx={{ backgroundColor: "#000", boxShadow: "none" }}>
+      <Container maxWidth="lg">
         <Toolbar disableGutters>
           <Typography
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -199,7 +202,7 @@ function MainHeader() {
                         <Typography variant="body1">
                           {item.product.name}
                         </Typography>
-                        <Typography variant="body2" >
+                        <Typography variant="body2">
                           Qty: {item.quantity}
                         </Typography>
                         <Typography variant="body2" fontWeight="bold">
@@ -207,6 +210,27 @@ function MainHeader() {
                         </Typography>
                       </Box>
                     </Box>
+
+                    <Button
+                      onClick={() => handleDelete(item._id)}
+                      sx={{
+                        backgroundColor: "transparent",
+                        borderRadius: "50%",
+                        width: "30px",
+                        height: "30px",
+                        fontSize: "10px",
+                        minWidth: "30px",
+                        mr: "10px",
+                        border: "1px solid #ccc",
+                        color: "#000",
+                        "&:hover": {
+                          backgroundColor: "#000",
+                          color: "#fff",
+                        },
+                      }}
+                    >
+                      x
+                    </Button>
                   </MenuItem>
                 ))}
                 <Box
@@ -252,8 +276,31 @@ function MainHeader() {
                 </Box>
               </Box>
             ) : (
-              <MenuItem onClick={handleCloseCartMenu}>
-                <Typography textAlign="center">Your cart is empty</Typography>
+              <MenuItem
+                onClick={handleCloseCartMenu}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  padding: 2,
+                }}
+              >
+                <Box sx={{ textAlign: "center" }}>
+                  <ShoppingCartIcon sx={{ fontSize: 60 }} />
+                  <Typography
+                    variant="body1"
+                    fontWeight="bold"
+                    sx={{ marginTop: 2 }}
+                  >
+                    No products in the cart.
+                  </Typography>
+                  <Button
+                    sx={{ mt: 1 }}
+                    onClick={() => navigate("/product-category")}
+                  >
+                    GO TO SHOP →
+                  </Button>
+                </Box>
               </MenuItem>
             )}
           </Menu>
@@ -284,14 +331,14 @@ function MainHeader() {
               onClose={handleCloseUserMenu}
             >
               {isAuthenticated ? (
-                [
+                <Stack>
                   <MenuItem key="account" onClick={() => navigate("/account")}>
                     Account
-                  </MenuItem>,
+                  </MenuItem>
                   <MenuItem key="logout" onClick={handleLogout}>
                     Logout
-                  </MenuItem>,
-                ]
+                  </MenuItem>
+                </Stack>
               ) : (
                 <MenuItem key="login" onClick={() => navigate("/login")}>
                   Login

@@ -38,7 +38,7 @@ function Slide() {
   ];
   return (
     <div>
-      <Slider {...settings} style={{ position: "relative", zIndex: 1 }}>
+      <Slider {...settings} style={{ position: "relative",  }}>
         {slides.map((slide, index) => (
           <div key={index} className="slide-item">
             <img

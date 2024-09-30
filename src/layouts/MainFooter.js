@@ -41,22 +41,22 @@ const MainFooter = () => {
           <Grid item>
             <List sx={{ display: "flex" }}>
               <ListItem>
-                <IconButton component={Link} href="">
+                <IconButton component={Link} href="https://x.com">
                   <XIcon />
                 </IconButton>
               </ListItem>
               <ListItem>
-                <IconButton component={Link} href="">
+                <IconButton component={Link} href="https://www.instagram.com/">
                   <Instagram />
                 </IconButton>
               </ListItem>
               <ListItem>
-                <IconButton component={Link} href="">
+                <IconButton component={Link} href="https://www.facebook.com/">
                   <Facebook />
                 </IconButton>
               </ListItem>
               <ListItem>
-                <IconButton component={Link} href="">
+                <IconButton component={Link} href="https://www.youtube.com/">
                   <YouTube />
                 </IconButton>
               </ListItem>
@@ -66,258 +66,6 @@ const MainFooter = () => {
       </Container>
 
       <Divider />
-
-      <Container
-        maxWidth="lg"
-        sx={{
-          display: { xs: "column", md: "flex" },
-          justifyContent: "space-between",
-          pt: "10px",
-          pb: "10px",
-        }}
-      >
-        <Grid item xs={12} sm={6} md={3}>
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-            GET HELP
-          </Typography>
-          <List>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                Contact & FAQ
-              </Link>
-            </ListItem>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                Track Your Order
-              </Link>
-            </ListItem>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                Shipping & Delivery
-              </Link>
-            </ListItem>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                Visit Brisbane Studio
-              </Link>
-            </ListItem>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                Interest Free Finance
-              </Link>
-            </ListItem>
-          </List>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Typography
-            variant="subtitle1"
-            gutterBottom
-            sx={{ fontWeight: "bold" }}
-          >
-            SERVICES
-          </Typography>
-          <List dense disablePadding>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                Assembly Guides
-              </Link>
-            </ListItem>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                Furniture Packages & Fitouts
-              </Link>
-            </ListItem>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                Trade Programme
-              </Link>
-            </ListItem>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                Sale
-              </Link>
-            </ListItem>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                New Designs
-              </Link>
-            </ListItem>
-          </List>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Typography
-            variant="subtitle1"
-            gutterBottom
-            sx={{ fontWeight: "bold" }}
-          >
-            CONNECT
-          </Typography>
-          <List dense disablePadding>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                X
-              </Link>
-            </ListItem>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                Facebook
-              </Link>
-            </ListItem>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                Instagram
-              </Link>
-            </ListItem>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                Pinterest
-              </Link>
-            </ListItem>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                Jobs
-              </Link>
-            </ListItem>
-          </List>
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={3}>
-          <Typography
-            variant="subtitle1"
-            gutterBottom
-            sx={{ fontWeight: "bold" }}
-          >
-            CATEGORIES
-          </Typography>
-          <List dense disablePadding>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                Armchairs
-              </Link>
-            </ListItem>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                Bath Room
-              </Link>
-            </ListItem>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                Dining Chairs
-              </Link>
-            </ListItem>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                Dining Tables
-              </Link>
-            </ListItem>
-            <ListItem disablePadding sx={{ py: 0.5 }}>
-              <Link
-                href="#"
-                underline="hover"
-                color="inherit"
-                sx={{ fontSize: "0.875rem" }}
-              >
-                Living Room
-              </Link>
-            </ListItem>
-          </List>
-        </Grid>
-      </Container>
 
       <Divider />
 

@@ -14,61 +14,36 @@ import AuthRequire from "./AuthRequire";
 import VerifiedPage from "../pages/VerifiedPage";
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import loginTheme from "../theme/logintheme";
+import MainShop from "../layouts/MainShop";
 
 function Router() {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+
+      <Route path="/" element={<MainShop />}>
+        <Route path="/account" element={<AccountPage />} />
+        <Route path="/cart" element={<CartPage />} />
         <Route path="/product-category" element={<ProductCategoryPage />} />
         <Route path="/detail/:id" element={<DetailPage />} />
-        <Route path="*" element={<NotFoundPage />} />
       </Route>
 
       <Route
-        path="/profile"
         element={
-          <AuthRequire>
-            <AccountPage />
-          </AuthRequire>
+          <MuiThemeProvider theme={loginTheme}>
+            <BlankLayout />
+          </MuiThemeProvider>
         }
-      />
-      <Route
-        path="/cart"
-        element={
-          <AuthRequire>
-            <CartPage />
-          </AuthRequire>
-        }
-      />
-
-      <Route element={<BlankLayout />}>
-        <Route
-          path="/login"
-          element={
-            <MuiThemeProvider theme={loginTheme}>
-              <LoginPage />
-            </MuiThemeProvider>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <MuiThemeProvider theme={loginTheme}>
-              <RegisterPage />
-            </MuiThemeProvider>
-          }
-        />
-        <Route
-          path="/confirm-email"
-          element={
-            <MuiThemeProvider theme={loginTheme}>
-              <VerifiedPage />
-            </MuiThemeProvider>
-          }
-        />
-        <Route path="*" element={<NotFoundPage />} />
+      >
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/confirm-email" element={<VerifiedPage />} />
       </Route>
+      <Route path="*" element={<NotFoundPage />} />
+      
     </Routes>
   );
 }

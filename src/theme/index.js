@@ -8,8 +8,8 @@ import {
 const PRIMARY = {
   lighter: "#ffee58", // Màu xanh nhạt
   light: "#fab950", // Màu xanh sáng
-  main: "#827E70	", // Màu xanh chính
-  dark: "#ae7519", // Màu xanh đậm
+  main: "#303030	", // Màu xanh chính
+  dark: "#808080", // Màu xanh đậm
   darker: "#f57f17", // Màu xanh đậm hơn
   contrastText: "#fff", // Màu chữ đối lập
 };
