@@ -28,7 +28,8 @@ function MainHeader() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [anchorElCart, setAnchorElCart] = React.useState(null);
-
+  const auth = useAuth();
+  const { user } = auth;
   const { isAuthenticated, logout } = useAuth();
   const { items } = useSelector((state) => state.cart);
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ function MainHeader() {
 
   const handleDelete = (item) => {
     dispatch(deleteCart({ cartItemId: item }));
+    handleCloseCartMenu()
   };
 
   const handleOpenNavMenu = (event) => {
@@ -61,7 +63,10 @@ function MainHeader() {
   const handleCloseCartMenu = () => {
     setAnchorElCart(null);
   };
-
+  const handleClickDetail = (detail) => {
+    navigate(`/detail/${detail}`);
+    handleCloseCartMenu();
+  };
   const handleLogout = async () => {
     await logout(() => {
       handleCloseUserMenu();
@@ -183,7 +188,7 @@ function MainHeader() {
                 {items.map((item) => (
                   <MenuItem
                     key={item._id}
-                    onClick={handleCloseCartMenu}
+                    onClick={() => handleClickDetail(item.product._id)}
                     sx={{
                       display: "flex",
                       justifyContent: "space-between",
@@ -212,7 +217,10 @@ function MainHeader() {
                     </Box>
 
                     <Button
-                      onClick={() => handleDelete(item._id)}
+                      onClick={(event) => {
+                        event.stopPropagation(); 
+                        handleDelete(item._id);
+                      }}
                       sx={{
                         backgroundColor: "transparent",
                         borderRadius: "50%",
@@ -314,6 +322,7 @@ function MainHeader() {
                 <PersonIcon sx={{ fontSize: "30px" }} />
               </IconButton>
             </Tooltip>
+
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
@@ -346,6 +355,9 @@ function MainHeader() {
               )}
             </Menu>
           </Box>
+          <Typography sx={{ ml: "5px", mt: "3px", width: "120px" }}>
+            {user?.name}
+          </Typography>
         </Toolbar>
       </Container>
     </AppBar>

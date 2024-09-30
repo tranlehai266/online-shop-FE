@@ -8,15 +8,23 @@ const initialState = {
   isAuthenticated: false,
   user: null,
 };
-const INITIALIZE = "AUTH.INITIALIZE";
+export const INITIALIZE = "AUTH.INITIALIZE";
 const LOGIN_SUCCESS = "AUTH.LOGIN_SUCCESS";
 const REGISTER_SUCCESS = "AUTH.REGISTER_SUCCESS";
 const LOGOUT = "AUTH.LOGOUT";
 const VERIFY = "AUTH.VERIFY_SUCCESS";
-const UPDATE_PROFILE = "AUTH.UPDATE_PROFILE";
+// const UPDATE_PROFILE = "AUTH.UPDATE_PROFILE";
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case INITIALIZE:
+      const { isAuthenticated, user } = action.payload;
+      return {
+        ...state,
+        isAuthenticated,
+        isInitialized: true,
+        user,
+      };
     case LOGIN_SUCCESS:
       return {
         ...state,
@@ -41,22 +49,11 @@ const reducer = (state, action) => {
         isAuthenticated: false,
         user: null,
       };
-    case INITIALIZE:
-      const { isAuthenticated, user } = action.payload;
-      return {
-        ...state,
-        isAuthenticated,
-        isInitialized: true,
-        user,
-      };
-    case UPDATE_PROFILE:
-      const { name, email, password, address, contact } = action.payload;
-      return {
-        ...state,
-        user: { ...state.user, name, email, password, address, contact },
-      };
-    default:
-      return state;
+    // case UPDATE_PROFILE:
+    //   return {
+    //     ...state,
+    //     user: { ...state.user, ...action.payload },
+    //   };
   }
 };
 
@@ -74,7 +71,18 @@ const setSession = (accessToken) => {
 
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const updatedProfile = useSelector((state) => state.user.updateProfile);
+
+  // const updatedProfile = useSelector((state) => state.user.updatedProfile);
+  // console.log("76", updatedProfile);
+
+  // useEffect(() => {
+  //   if (updatedProfile) {
+  //     dispatch({
+  //       type: UPDATE_PROFILE,
+  //       payload: updatedProfile,
+  //     });
+  //   }
+  // }, [updatedProfile]);
 
   useEffect(() => {
     const initialize = async () => {
@@ -83,11 +91,14 @@ function AuthProvider({ children }) {
 
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
+
           const response = await apiService.get("/users/profile");
-          const user = response.data;
+          const user = response.data.data;
+          console.log("profile", user);
+
           dispatch({
             type: INITIALIZE,
-            payload: { isAuthenticated: true, user },
+            payload: { isAuthenticated: true, user: user },
           });
         } else {
           setSession(null);
@@ -106,12 +117,6 @@ function AuthProvider({ children }) {
     };
     initialize();
   }, []);
-
-  useEffect(() => {
-    if (updatedProfile) {
-      dispatch({ type: UPDATE_PROFILE, payload: updatedProfile });
-    }
-  }, [updatedProfile]);
 
   const login = async ({ email, password }, callback) => {
     const response = await apiService.post("/auth/login", {

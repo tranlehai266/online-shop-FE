@@ -19,14 +19,16 @@ import { useNavigate } from "react-router-dom";
 
 function Products() {
   const dispatch = useDispatch();
+  
   const productIds = useSelector((state) => state.cart.productIds);
   const products = useSelector((state) => state.product.products);
   const navigate = useNavigate();
   const auth = useAuth();
   const { isAuthenticated, user } = auth;
-  console.log("28", user);
-  const userId = user?.data?._id;
-
+  console.log("27",user)
+  const userId = user?._id;
+  console.log(userId)
+  
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
@@ -40,9 +42,12 @@ function Products() {
       toast.info("The product is already in the cart");
     } else {
       dispatch(
-        handleAddToCart({ productId: product._id, quantity: 1, userId })
+        handleAddToCart({
+          productId: product._id,
+          quantity: 1,
+          userId,
+        })
       );
-      console.log("45", userId);
     }
   };
   const handleClick = (id) => {

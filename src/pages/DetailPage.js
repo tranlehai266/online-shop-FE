@@ -23,14 +23,14 @@ const DetailPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const auth = useAuth();
-  const { isAuthenticated } = auth;
+  const { isAuthenticated, user } = auth;
   const navigate = useNavigate();
   const productDetail = useSelector((state) => state.product.productDetail);
   const productIds = useSelector((state) => state.cart.productIds);
   const productCategory = useSelector((state) => state.product.productCategory);
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
-
+  const userId = user?._id;
   useEffect(() => {
     if (id) {
       setLoading(true);
@@ -54,7 +54,7 @@ const DetailPage = () => {
     if (productIds.includes(productDetail._id)) {
       toast.info("The product is already in the cart");
     } else {
-      dispatch(handleAddToCart({ productId: id, quantity }));
+      dispatch(handleAddToCart({ productId: id, quantity, userId }));
     }
   };
 

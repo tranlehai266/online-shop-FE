@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import apiService from "../app/apiService";
 import { toast } from "react-toastify";
 
-
 const initialState = {
   items: [],
   isLoading: false,
@@ -46,7 +45,6 @@ export const handleAddToCart =
   ({ productId, quantity, userId }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
-    console.log("cart slice 49",userId)
     try {
       const response = await apiService.post("/cart/items", {
         productId,
@@ -66,7 +64,6 @@ export const getCart = () => async (dispatch) => {
   dispatch(slice.actions.startLoading());
   try {
     const response = await apiService.get("/shoppingcart");
-    console.log("shoppingcart", response.data.data);
     dispatch(slice.actions.getCartSuccess(response.data.data));
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
