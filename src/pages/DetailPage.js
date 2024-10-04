@@ -18,6 +18,7 @@ import { handleAddToCart } from "../features/cartSlice";
 import { toast } from "react-toastify";
 import useAuth from "../hooks/useAuth";
 import LoadingScreen from "../components/LoadingScreen";
+import NotFoundPage from "./NotFoundPage";
 
 const DetailPage = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,8 @@ const DetailPage = () => {
   const productDetail = useSelector((state) => state.product.productDetail);
   const productIds = useSelector((state) => state.cart.productIds);
   const productCategory = useSelector((state) => state.product.productCategory);
+  console.log("31", productDetail);
+  console.log("32", productCategory);
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
   const userId = user?._id;
@@ -68,7 +71,7 @@ const DetailPage = () => {
   }
 
   if (!productDetail) {
-    return <Typography variant="h6">Product not found</Typography>;
+    return <NotFoundPage />;
   }
 
   return (
@@ -77,10 +80,17 @@ const DetailPage = () => {
         <Link underline="hover" color="inherit" href="/">
           Home
         </Link>
-        <Link underline="hover" color="inherit" href="/product-category">
+        <Link underline="hover" color="inherit" href="/shop">
           Shop
         </Link>
-        <Link underline="hover" color="inherit" href="#">
+        <Link
+          underline="hover"
+          color="inherit"
+          sx={{ cursor: "pointer" }}
+          onClick={() =>
+            navigate(`/product-category/${productDetail.category._id}`)
+          }
+        >
           {productDetail.category.name}
         </Link>
         <Typography color="text.primary">{productDetail.name}</Typography>
@@ -98,7 +108,7 @@ const DetailPage = () => {
             component="img"
             image={productDetail.image_url}
             alt={productDetail.name}
-            sx={{ height: "700px", objectFit: "contain" }}
+            sx={{ height: { md: "680px", xs: "100%" }, objectFit: "contain" }}
           />
         </Card>
 
@@ -190,12 +200,12 @@ const DetailPage = () => {
           </Box>
         </Box>
       </Box>
-      <Divider sx={{ mt: "20px" }} />
-      <Box>
+      <Divider sx={{ mt: "50px" }} />
+      <Box mt="40px">
         <Typography variant="h4" textAlign="center" mt="20px" mb="20px">
           Related Products
         </Typography>
-        <Grid container spacing={3} justifyContent="center">
+        <Grid container spacing={8} justifyContent="center">
           {productCategory.slice(0, 6).map((product) => (
             <Grid item xs={12} sm={6} md={4} key={product._id}>
               <Card>
@@ -203,7 +213,7 @@ const DetailPage = () => {
                   component="img"
                   image={product.image_url}
                   alt={product.name}
-                  sx={{ width: "300px", height: "200px", cursor: "pointer" }}
+                  sx={{ width: "300px", height: "200px", cursor: "pointer", objectFit:"contain" }}
                   onClick={() => handleRelatedProductClick(product._id)}
                 />
                 <Box sx={{ p: 2 }}>

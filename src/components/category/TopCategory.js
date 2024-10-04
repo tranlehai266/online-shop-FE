@@ -1,23 +1,17 @@
-import React, { useEffect, useState } from "react";
-import apiService from "../../app/apiService";
+import React, { useEffect } from "react";
 import { Card, CardMedia, CardContent, Typography, Stack } from "@mui/material";
 import Grid from "@mui/material/Grid2";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategory } from "../../features/productSlice";
+import { useNavigate } from "react-router-dom";
 
 function TopCategory() {
-  const [categories, setCategories] = useState(null);
-
+  const categories = useSelector((state) => state.product.categories);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await apiService.get("/categories");
-        setCategories(response.data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchCategories();
-  }, []);
+    dispatch(getCategory());
+  }, [dispatch]);
 
   return (
     <Stack>
@@ -33,7 +27,7 @@ function TopCategory() {
         </Typography>
       </Grid>
 
-      <Grid container spacing={3} padding={3} justifyContent="center">
+      <Grid container spacing={5} padding={3} justifyContent="center">
         {categories &&
           categories.map((category) => (
             <Grid item xs={12} sm={6} md={3} lg={3} key={category._id}>
@@ -54,6 +48,7 @@ function TopCategory() {
                   sx={{ height: "300px", width: "430px" }}
                   image={category.images}
                   alt={category.name}
+                  onClick={() => navigate(`/product-category/${category._id}`)}
                 />
                 <CardContent>
                   <Typography variant="h6" textAlign="center">

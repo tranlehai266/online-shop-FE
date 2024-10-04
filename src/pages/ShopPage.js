@@ -16,35 +16,29 @@ import {
 import Grid from "@mui/material/Grid2";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductCategory, getCategory } from "../features/productSlice";
+import { getCategory, getProducts } from "../features/productSlice";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
 import { handleAddToCart } from "../features/cartSlice";
-import { useNavigate, useParams } from "react-router-dom";
-import LoadingScreen from "../components/LoadingScreen";
+import { useNavigate } from "react-router-dom";
 
-const ProductCategoryPage = () => {
-  const [visible, setVisible] = useState(8);
+const Shop = () => {
   const [sort, setSort] = useState("default");
   const dispatch = useDispatch();
-  const { categoryId } = useParams();
-  const products = useSelector((state) => state.product.productCategory);
+  const products = useSelector((state) => state.product.products);
   const categories = useSelector((state) => state.product.categories);
   const productIds = useSelector((state) => state.cart.productIds);
-  const [loading, setLoading] = useState(true);
   const auth = useAuth();
   const navigate = useNavigate();
   const { isAuthenticated, user } = auth;
   const userId = user?._id;
-  console.log("products category", products);
+
+  const [visible, setVisible] = useState(8);
+
   useEffect(() => {
+    dispatch(getProducts(sort));
     dispatch(getCategory());
-    if (categoryId) {
-      dispatch(getProductCategory(categoryId, 20, sort)).then(() => {
-        setLoading(false);
-      });
-    }
-  }, [dispatch, categoryId, sort]);
+  }, [dispatch, sort]);
 
   const addToCart = (product) => {
     if (!isAuthenticated) {
@@ -63,17 +57,19 @@ const ProductCategoryPage = () => {
       );
     }
   };
-  const loadMore = () => {
-    setVisible((prev) => prev + 6);
-  };
 
   const handleDetailPage = (id) => {
     navigate(`/detail/${id}`);
   };
 
-  if (loading) {
-    return <LoadingScreen />;
-  }
+  const handleProductCategory = (categoryId) => {
+    navigate(`/product-category/${categoryId}`);
+  };
+
+  const loadMore = () => {
+    setVisible((prev) => prev + 6);
+  };
+
   const getRatingByPopularity = (popularity) => {
     if (popularity >= 80) return 5;
     if (popularity >= 60) return 4;
@@ -91,8 +87,7 @@ const ProductCategoryPage = () => {
         mb={3}
         sx={{ textTransform: "uppercase" }}
       >
-        {/* Tên danh mục hiện tại */}
-        {categories.find((category) => category._id === categoryId)?.name}
+        Shop
       </Typography>
 
       <Box sx={{ display: "flex" }}>
@@ -108,25 +103,27 @@ const ProductCategoryPage = () => {
           </Typography>
           <List>
             {categories.map((category) => (
-              <ListItem key={category._id} disablePadding>
+              <ListItem
+                key={category._id}
+                disablePadding
+                sx={{
+                  "&:hover": {
+                    opacity: "1",
+                    cursor: "pointer",
+                  },
+                  opacity: 0.5,
+                }}
+              >
                 <ListItemText
                   primary={category.name}
-                  sx={{
-                    opacity: category._id === categoryId ? "1" : "0.5",
-                    textDecoration:
-                      category._id === categoryId ? "underline" : "none",
-                    "&:hover": {
-                      opacity: "1",
-                      cursor: "pointer",
-                    },
-                  }}
-                  onClick={() => navigate(`/product-category/${category._id}`)}
+                  onClick={() => handleProductCategory(category._id)}
                 />
               </ListItem>
             ))}
           </List>
         </Box>
 
+        {/* Products section */}
         <Box sx={{ width: { xs: "100%", md: "75%" }, pl: 2 }}>
           <Box sx={{ display: "flex", mb: 2 }}>
             <Select
@@ -135,8 +132,8 @@ const ProductCategoryPage = () => {
               onChange={(e) => setSort(e.target.value)}
             >
               <MenuItem value="default">Default Sorting</MenuItem>
-              <MenuItem value="popularity">Rating</MenuItem>
-              <MenuItem value="rating">Popularity</MenuItem>
+              <MenuItem value="popularity">Popularity</MenuItem>
+              <MenuItem value="rating">Rating</MenuItem>
               <MenuItem value="priceLowToHigh">Price: Low to High</MenuItem>
               <MenuItem value="priceHighToLow">Price: High to Low</MenuItem>
             </Select>
@@ -255,4 +252,4 @@ const ProductCategoryPage = () => {
   );
 };
 
-export default ProductCategoryPage;
+export default Shop;

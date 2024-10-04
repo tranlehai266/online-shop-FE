@@ -31,7 +31,7 @@ function MainHeader() {
   const auth = useAuth();
   const { user } = auth;
   const { isAuthenticated, logout } = useAuth();
-  const { items } = useSelector((state) => state.cart);
+  const items = useSelector((state) => state.cart.items) || [0];
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -42,7 +42,7 @@ function MainHeader() {
 
   const handleDelete = (item) => {
     dispatch(deleteCart({ cartItemId: item }));
-    handleCloseCartMenu()
+    handleCloseCartMenu();
   };
 
   const handleOpenNavMenu = (event) => {
@@ -141,12 +141,14 @@ function MainHeader() {
             <Button
               component={Link}
               to="/"
-              sx={{ color: "#fff", fontWeight: "bold", fontSize: "16px" }}
+              sx={{ color: "#fff", fontWeight: "600", fontSize: "16px" }}
             >
               Home
             </Button>
             <Button
-              sx={{ color: "#fff", fontWeight: "bold", fontSize: "16px" }}
+              component={Link}
+              to="/shop"
+              sx={{ color: "#fff", fontWeight: "600", fontSize: "16px" }}
             >
               Shop
             </Button>
@@ -160,7 +162,7 @@ function MainHeader() {
             onClick={handleOpenCartMenu}
           >
             <Badge
-              badgeContent={isAuthenticated ? items.length : 0}
+              badgeContent={isAuthenticated ? items.length : [0]}
               color="error"
             >
               <ShoppingCartIcon />
@@ -199,26 +201,26 @@ function MainHeader() {
                   >
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                       <img
-                        src={item.product.image_url}
-                        alt={item.product.name}
+                        src={item?.product?.image_url}
+                        alt={item?.product?.name}
                         style={{ width: 100, height: 60, marginRight: 10 }}
                       />
                       <Box>
                         <Typography variant="body1">
-                          {item.product.name}
+                          {item?.product?.name}
                         </Typography>
                         <Typography variant="body2">
-                          Qty: {item.quantity}
+                          Qty: {item?.quantity}
                         </Typography>
                         <Typography variant="body2" fontWeight="bold">
-                          ${item.product.price}
+                          ${item?.product?.price}
                         </Typography>
                       </Box>
                     </Box>
 
                     <Button
                       onClick={(event) => {
-                        event.stopPropagation(); 
+                        event.stopPropagation();
                         handleDelete(item._id);
                       }}
                       sx={{
@@ -253,7 +255,7 @@ function MainHeader() {
                     $
                     {items.reduce(
                       (total, item) =>
-                        total + item.product.price * item.quantity,
+                        total + item?.product?.price * item?.quantity,
                       0
                     )}
                   </Typography>
@@ -302,10 +304,7 @@ function MainHeader() {
                   >
                     No products in the cart.
                   </Typography>
-                  <Button
-                    sx={{ mt: 1 }}
-                    onClick={() => navigate("/product-category")}
-                  >
+                  <Button sx={{ mt: 1 }} onClick={() => navigate("/shop")}>
                     GO TO SHOP →
                   </Button>
                 </Box>
@@ -343,6 +342,12 @@ function MainHeader() {
                 <Stack>
                   <MenuItem key="account" onClick={() => navigate("/account")}>
                     Account
+                  </MenuItem>
+                  <MenuItem
+                    key="My order"
+                    onClick={() => navigate("/my-order")}
+                  >
+                    My order
                   </MenuItem>
                   <MenuItem key="logout" onClick={handleLogout}>
                     Logout

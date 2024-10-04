@@ -16,6 +16,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import useAuth from "../hooks/useAuth";
 import Logo from "../images/logo__shop.png";
+import { toast } from "react-toastify";
 
 const LoginSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -54,7 +55,7 @@ function RegisterPage() {
     let { name, email, password } = data;
     try {
       await auth.register({ name, email, password }, (message) => {
-        alert(message);
+        toast.success(message);
         navigate("/confirm-email");
       });
     } catch (error) {

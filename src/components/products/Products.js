@@ -19,16 +19,15 @@ import { useNavigate } from "react-router-dom";
 
 function Products() {
   const dispatch = useDispatch();
-  
   const productIds = useSelector((state) => state.cart.productIds);
   const products = useSelector((state) => state.product.products);
   const navigate = useNavigate();
   const auth = useAuth();
   const { isAuthenticated, user } = auth;
-  console.log("27",user)
+  console.log("27", user);
   const userId = user?._id;
-  console.log(userId)
-  
+  console.log(userId);
+
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
@@ -62,8 +61,8 @@ function Products() {
           Latest Products
         </Typography>
       </Box>
-      <Grid container spacing={3} padding={3} justifyContent="center">
-        {products.map((product) => (
+      <Grid container spacing={1} padding={3} justifyContent="center">
+        {products.slice(0, 12).map((product) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={product._id}>
             <Box
               sx={{
@@ -71,6 +70,7 @@ function Products() {
                 "&:hover .add-to-cart": {
                   opacity: 1,
                 },
+                padding: "1px",
               }}
             >
               <Card

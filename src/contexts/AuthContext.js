@@ -1,29 +1,27 @@
 import { createContext, useReducer, useEffect } from "react";
 import apiService from "../app/apiService";
 import { isValidToken } from "../utils/jwt";
-import { useSelector } from "react-redux";
 
 const initialState = {
   isInitialized: false,
   isAuthenticated: false,
   user: null,
 };
-export const INITIALIZE = "AUTH.INITIALIZE";
+const INITIALIZE = "AUTH.INITIALIZE";
 const LOGIN_SUCCESS = "AUTH.LOGIN_SUCCESS";
 const REGISTER_SUCCESS = "AUTH.REGISTER_SUCCESS";
 const LOGOUT = "AUTH.LOGOUT";
 const VERIFY = "AUTH.VERIFY_SUCCESS";
-// const UPDATE_PROFILE = "AUTH.UPDATE_PROFILE";
+const UPDATE_PROFILE = "AUTH.UPDATE_PROFILE";
 
 const reducer = (state, action) => {
   switch (action.type) {
     case INITIALIZE:
-      const { isAuthenticated, user } = action.payload;
       return {
         ...state,
-        isAuthenticated,
+        isAuthenticated: action.payload.isAuthenticated,
         isInitialized: true,
-        user,
+        user: action.payload.user,
       };
     case LOGIN_SUCCESS:
       return {
@@ -49,11 +47,13 @@ const reducer = (state, action) => {
         isAuthenticated: false,
         user: null,
       };
-    // case UPDATE_PROFILE:
-    //   return {
-    //     ...state,
-    //     user: { ...state.user, ...action.payload },
-    //   };
+    case UPDATE_PROFILE:
+      return {
+        ...state,
+        user: { ...state.user, ...action.payload },
+      };
+    default:
+      return state;
   }
 };
 
@@ -71,18 +71,6 @@ const setSession = (accessToken) => {
 
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  // const updatedProfile = useSelector((state) => state.user.updatedProfile);
-  // console.log("76", updatedProfile);
-
-  // useEffect(() => {
-  //   if (updatedProfile) {
-  //     dispatch({
-  //       type: UPDATE_PROFILE,
-  //       payload: updatedProfile,
-  //     });
-  //   }
-  // }, [updatedProfile]);
 
   useEffect(() => {
     const initialize = async () => {
@@ -164,6 +152,39 @@ function AuthProvider({ children }) {
     callback(message);
   };
 
+  const updateProfile = async (
+    { name, address, password, contact },
+    callback
+  ) => {
+    try {
+      const response = await apiService.put("/users/update", {
+        name,
+        address,
+        contact,
+        password,
+      });
+      const updatedUser = response.data.data;
+      console.log("updatedUser", updatedUser);
+
+      dispatch({
+        type: UPDATE_PROFILE,
+        payload: updatedUser,
+      });
+
+      callback();
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    }
+  };
+
+  const resetPassword = async ({ email }, callback) => {
+    const response = await apiService.post("/users/reset-password", {
+      email,
+    });
+    const message = response.data.message;
+    callback(message);
+  };
+
   const logout = async (callback) => {
     setSession(null);
     dispatch({ type: LOGOUT });
@@ -171,7 +192,17 @@ function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ ...state, login, register, verify, logout }}>
+    <AuthContext.Provider
+      value={{
+        ...state,
+        login,
+        register,
+        verify,
+        logout,
+        updateProfile,
+        resetPassword,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

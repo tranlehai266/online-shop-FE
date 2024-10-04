@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { Button, TextField, Container, Alert, Typography } from "@mui/material";
 import useAuth from "../hooks/useAuth";
 import { isValidToken } from "../utils/jwt";
+import { toast } from "react-toastify";
 
 function VerifyPage() {
   const { verify } = useAuth();
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  
+
   const handleVerify = async () => {
     const token = localStorage.getItem("tokenRegister");
     if (!isValidToken(token)) {
@@ -18,7 +19,7 @@ function VerifyPage() {
     }
     try {
       await verify({ code, token }, (message) => {
-        alert(message);
+        toast.success(message);
         window.localStorage.removeItem("tokenRegister");
         navigate("/login");
       });
