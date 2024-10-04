@@ -69,7 +69,7 @@ function MainHeader() {
   };
   const handleLogout = async () => {
     await logout(() => {
-      navigate("/login")
+      navigate("/login");
       handleCloseUserMenu();
       toast.success("Logout Success");
     });
@@ -269,20 +269,12 @@ function MainHeader() {
                   }}
                 >
                   <Button
-                    variant="outlined"
+                    variant="contained"
                     fullWidth
                     sx={{ marginRight: 1 }}
                     onClick={() => navigate("/cart")}
                   >
                     View Cart
-                  </Button>
-                  <Button
-                    variant="contained"
-                    fullWidth
-                    color="primary"
-                    onClick={() => navigate("/checkout")}
-                  >
-                    Checkout
                   </Button>
                 </Box>
               </Box>
