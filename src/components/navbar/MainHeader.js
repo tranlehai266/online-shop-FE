@@ -69,6 +69,7 @@ function MainHeader() {
   };
   const handleLogout = async () => {
     await logout(() => {
+      navigate("/login")
       handleCloseUserMenu();
       toast.success("Logout Success");
     });

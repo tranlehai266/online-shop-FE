@@ -70,7 +70,9 @@ const CartPage = () => {
   };
   const handlePayPalSuccess = (details, data) => {
     toast.success("Transaction completed by " + user?.name);
-    dispatch(completePayment({ orderID: data.orderID }));
+    dispatch(
+      completePayment({ orderID: data.orderID, shippingAddress: user?.address })
+    );
   };
 
   return (
@@ -239,9 +241,14 @@ const CartPage = () => {
                   }}
                 />
               ) : (
-                <Button variant="contained" fullWidth sx={{ mt: 2 }} disabled>
-                  Payments cannot be made without an address
-                </Button>
+                <Box>
+                  <Button variant="contained" fullWidth sx={{ mt: 2 }} disabled>
+                    Payments cannot be made without an address
+                  </Button>
+                  <Link color="inherit" href="/account">
+                    Go to account and enter address →
+                  </Link>
+                </Box>
               )}
             </Box>
           </Box>

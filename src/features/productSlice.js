@@ -37,13 +37,11 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.productCategory = action.payload;
-      console.log("39", state.productCategory);
     },
     getCategorySuccess(state, action) {
       state.isLoading = false;
       state.error = null;
       state.categories = action.payload;
-      console.log("43", state.categories);
     },
     getProductSearchSuccess(state, action) {
       state.isLoading = false;

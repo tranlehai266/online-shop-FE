@@ -82,7 +82,6 @@ function AuthProvider({ children }) {
 
           const response = await apiService.get("/users/profile");
           const user = response.data.data;
-          console.log("profile", user);
 
           dispatch({
             type: INITIALIZE,

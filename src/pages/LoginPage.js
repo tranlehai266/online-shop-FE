@@ -34,7 +34,7 @@ function LoginPage() {
   const location = useLocation();
   const auth = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  
+
   const methods = useForm({
     resolver: yupResolver(LoginSchema),
     defaultValues,
@@ -68,7 +68,6 @@ function LoginPage() {
         alignItems: "center",
         height: "500px",
         backdropFilter: "blur(5px)",
-        
       }}
     >
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -110,6 +109,9 @@ function LoginPage() {
           sx={{ my: 2 }}
         >
           <FCheckbox name="remember" label="Remember me" />
+          <Link component={RouterLink} variant="subtitle2" to="/">
+            Go to shop
+          </Link>
           <Link component={RouterLink} variant="subtitle2" to="/resetpassword">
             Forgot password?
           </Link>

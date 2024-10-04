@@ -32,7 +32,6 @@ const slice = createSlice({
       state.error = null;
       state.items = action.payload.items;
       state.productIds = action.payload.items.map((item) => item.product._id);
-      console.log("34", state.items);
     },
     updateQuantitySuccess(state, action) {
       state.isLoading = false;
@@ -54,7 +53,6 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.itemsStatus = action.payload;
-      console.log("57", state.itemsStatus);
     },
   },
 });
@@ -82,7 +80,6 @@ export const getCart = () => async (dispatch) => {
   dispatch(slice.actions.startLoading());
   try {
     const response = await apiService.get("/shoppingcart");
-    console.log("shoppingcart", response.data.data);
     dispatch(slice.actions.getCartSuccess(response.data.data));
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
@@ -100,7 +97,7 @@ export const updateQuantity =
         cartItemId,
         quantity,
       });
-      // console.log("updatequantity", response);
+
       dispatch(slice.actions.updateQuantitySuccess(response.data.data));
       dispatch(getCart());
     } catch (error) {
@@ -126,12 +123,13 @@ export const deleteCart =
   };
 
 export const completePayment =
-  ({ orderID }) =>
+  ({ orderID, shippingAddress }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       const response = await apiService.put("/shoppingcart/payment", {
         orderID,
+        shippingAddress,
       });
       console.log("payment", response);
       dispatch(slice.actions.completePaymentSuccess(response.data.data));

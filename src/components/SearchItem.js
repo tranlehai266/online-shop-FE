@@ -11,7 +11,6 @@ const SearchItem = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.productSearch);
-  console.log("search", products);
   const navigate = useNavigate();
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => {

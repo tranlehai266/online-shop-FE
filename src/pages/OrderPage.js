@@ -1,7 +1,22 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getShoppingStatus } from "../features/cartSlice";
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Paper, Avatar, List, ListItem, ListItemText, ListItemAvatar } from "@mui/material";
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  Paper,
+  Avatar,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+} from "@mui/material";
 import useAuth from "../hooks/useAuth";
 
 function OrderPage() {
@@ -24,6 +39,7 @@ function OrderPage() {
               <TableCell>Order</TableCell>
               <TableCell>Products</TableCell>
               <TableCell>Status</TableCell>
+              <TableCell>Address</TableCell>
               <TableCell>Date of purchase</TableCell>
             </TableRow>
           </TableHead>
@@ -56,6 +72,7 @@ function OrderPage() {
                 <TableCell>
                   <Typography>{order.status}</Typography>
                 </TableCell>
+                <TableCell>{order.shippingAddress}</TableCell>
                 <TableCell>
                   <Typography>{order.updatedAt}</Typography>
                 </TableCell>
