@@ -23,7 +23,7 @@ function OrderPage() {
   const dispatch = useDispatch();
   const { user, isLoading } = useAuth();
   const items = useSelector((state) => state.cart.itemsStatus);
-
+  console.log(items);
   useEffect(() => {
     if (user && !isLoading) {
       dispatch(getShoppingStatus());
@@ -74,7 +74,9 @@ function OrderPage() {
                 </TableCell>
                 <TableCell>{order.shippingAddress}</TableCell>
                 <TableCell>
-                  <Typography>{order.updatedAt}</Typography>
+                  <Typography>
+                    {new Date(order.updatedAt).toLocaleString('vi-VN')}
+                  </Typography>
                 </TableCell>
               </TableRow>
             ))}

@@ -1,6 +1,7 @@
 import { createContext, useReducer, useEffect } from "react";
 import apiService from "../app/apiService";
 import { isValidToken } from "../utils/jwt";
+import { toast } from "react-toastify";
 
 const initialState = {
   isInitialized: false,
@@ -112,6 +113,10 @@ function AuthProvider({ children }) {
     });
     const { user, accessToken } = response.data.data;
     console.log("user", response.data.data);
+    if (user.isDeleted) {
+      toast.error("Your account has been disabled. Please contact support.");
+      return;
+    }
     setSession(accessToken);
     dispatch({
       type: LOGIN_SUCCESS,

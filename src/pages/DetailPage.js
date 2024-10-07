@@ -206,14 +206,19 @@ const DetailPage = () => {
           Related Products
         </Typography>
         <Grid container spacing={8} justifyContent="center">
-          {productCategory.slice(0, 6).map((product) => (
+          {productCategory.slice(11, 20).map((product) => (
             <Grid item xs={12} sm={6} md={4} key={product._id}>
               <Card>
                 <CardMedia
                   component="img"
                   image={product.image_url}
                   alt={product.name}
-                  sx={{ width: "300px", height: "200px", cursor: "pointer", objectFit:"contain" }}
+                  sx={{
+                    width: "300px",
+                    height: "200px",
+                    cursor: "pointer",
+                    objectFit: "contain",
+                  }}
                   onClick={() => handleRelatedProductClick(product._id)}
                 />
                 <Box sx={{ p: 2 }}>

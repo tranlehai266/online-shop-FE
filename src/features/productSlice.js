@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import apiService from "../app/apiService";
+import { cloudinaryUpload } from "../utils/cloudinary";
 
 const initialState = {
   products: [],
@@ -51,6 +52,32 @@ const slice = createSlice({
     },
     clearSearchResults(state) {
       state.productSearch = [];
+    },
+    updateProductSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const updatedProduct = action.payload;
+      state.products = state.products.map((product) =>
+        product._id === updatedProduct._id ? updatedProduct : product
+      );
+    },
+    updateCategorySuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const updatedCategory = action.payload;
+      state.categories = state.categories.map((category) =>
+        category._id === updatedCategory._id ? updatedCategory : category
+      );
+    },
+    createCategrySuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.categories.push(action.payload);
+    },
+    createProductSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.products.push(action.payload);
     },
   },
 });
@@ -114,5 +141,97 @@ export const getSearchProduct = (searchQuery) => async (dispatch) => {
     dispatch(slice.actions.hasError());
   }
 };
+
+export const updateProduct = (productId, updateData) => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    if (updateData.image_url) {
+      const imageUrl = await cloudinaryUpload(updateData.image_url);
+      updateData.image_url = imageUrl;
+    }
+
+    const response = await apiService.put(
+      `/admin/product/${productId}`,
+      updateData
+    );
+    dispatch(slice.actions.updateProductSuccess(response.data.data));
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+  }
+};
+
+export const updateCategory = (categoryId, updateData) => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    if (updateData.images) {
+      const imageUrl = await cloudinaryUpload(updateData.images);
+      updateData.images = imageUrl;
+    }
+
+    const response = await apiService.put(
+      `/admin/category/${categoryId}`,
+      updateData
+    );
+    dispatch(slice.actions.updateCategorySuccess(response.data.data));
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+  }
+};
+
+export const createCategry =
+  ({ name, images }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      if (images) {
+        const imageUrl = await cloudinaryUpload(images);
+        images = imageUrl;
+      }
+
+      const response = await apiService.post("/admin/category", {
+        name,
+        images,
+      });
+      dispatch(slice.actions.createCategrySuccess(response.data.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+    }
+  };
+export const createProduct =
+  ({
+    name,
+    item_id,
+    price,
+    old_price,
+    description,
+    image_url,
+    category,
+    popularity,
+    rating,
+  }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      if (image_url) {
+        const imageUrl = await cloudinaryUpload(image_url);
+        image_url = imageUrl;
+      }
+      const response = await apiService.post("/admin/product", {
+        name,
+        item_id,
+        price,
+        old_price,
+        description,
+        image_url,
+        category,
+        popularity,
+        rating,
+      });
+      dispatch(slice.actions.createProductSuccess(response.data.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+    }
+  };
+
 export const { clearSearchResults } = slice.actions;
 export default slice.reducer;

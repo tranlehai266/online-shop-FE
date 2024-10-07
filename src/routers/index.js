@@ -18,6 +18,8 @@ import Shop from "../pages/ShopPage";
 import ProductCategoryPage from "../pages/ProductCategoryPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
 import OrderPage from "../pages/OrderPage";
+import AdminPage from "../pages/AdminPage";
+import AdminRoute from "./AdminRoute";
 
 function Router() {
   return (
@@ -36,6 +38,14 @@ function Router() {
           element={<ProductCategoryPage />}
         />
         <Route path="detail/:id" element={<DetailPage />} />
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminPage />
+            </AdminRoute>
+          }
+        ></Route>
       </Route>
 
       <Route
