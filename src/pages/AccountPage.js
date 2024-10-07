@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Tab, Box, Tabs, Typography } from "@mui/material";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import PasswordIcon from '@mui/icons-material/Password';
 import AccountSettings from "../components/account/AccountSettings";
 import AccountPassword from "../components/account/AccountPassword";
 import { capitalCase } from "change-case";
