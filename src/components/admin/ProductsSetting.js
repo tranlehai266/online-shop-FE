@@ -24,6 +24,7 @@ import {
 } from "@mui/material";
 import {
   createProduct,
+  getCategory,
   getProducts,
   updateProduct,
 } from "../../features/productSlice";
@@ -39,6 +40,7 @@ function ProductsSetting() {
   const categories = useSelector((state) => state.product.categories);
   const [open, setOpen] = useState(false);
   const [editingProductId, setEditingProductId] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -51,6 +53,7 @@ function ProductsSetting() {
     image_url: "",
     rating: "",
     popularity: "",
+    category: "",
   };
 
   const methods = useForm({
@@ -61,6 +64,7 @@ function ProductsSetting() {
 
   useEffect(() => {
     dispatch(getProducts());
+    dispatch(getCategory())
   }, [dispatch]);
 
   const handleDeleteProduct = (productId) => {
@@ -79,10 +83,13 @@ function ProductsSetting() {
         image_url: product.image_url,
         rating: product.rating,
         popularity: product.popularity,
+        category: product.category._id,
       });
+      setSelectedCategory(product.category._id);
     } else {
       reset(defaultValues);
       setEditingProductId(null);
+      setSelectedCategory("");
     }
     setOpen(true);
   };
@@ -108,11 +115,15 @@ function ProductsSetting() {
   );
 
   const onSubmit = async (data) => {
+    const productData = {
+      ...data,
+      category: selectedCategory,
+    };
     if (editingProductId) {
-      dispatch(updateProduct(editingProductId, data));
+      dispatch(updateProduct(editingProductId, productData));
       console.log(data);
     } else {
-      dispatch(createProduct(data));
+      dispatch(createProduct(productData));
     }
     handleCloseModal();
   };
@@ -251,8 +262,11 @@ function ProductsSetting() {
                 <InputLabel>Category</InputLabel>
                 <Select
                   label="Category"
-                  value={categories || ""}
-                  onChange={(event) => setValue("category", event.target.value)}
+                  value={selectedCategory}
+                  onChange={(event) => {
+                    setSelectedCategory(event.target.value);
+                    setValue("category", event.target.value);
+                  }}
                 >
                   {categories.map((cat) => (
                     <MenuItem key={cat._id} value={cat._id}>

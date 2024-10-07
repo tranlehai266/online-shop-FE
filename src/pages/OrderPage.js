@@ -24,6 +24,13 @@ function OrderPage() {
   const { user, isLoading } = useAuth();
   const items = useSelector((state) => state.cart.itemsStatus);
   console.log(items);
+
+  const calculateTotal = (items) => {
+    return items.reduce((acc, product) => {
+      return acc + product.product.price * product.quantity;
+    }, 0);
+  };
+
   useEffect(() => {
     if (user && !isLoading) {
       dispatch(getShoppingStatus());
@@ -36,19 +43,16 @@ function OrderPage() {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Order</TableCell>
               <TableCell>Products</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Address</TableCell>
+              <TableCell>Total</TableCell>
               <TableCell>Date of purchase</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {items.map((order) => (
               <TableRow key={order._id}>
-                <TableCell>
-                  <Typography>#{order._id}</Typography>
-                </TableCell>
                 <TableCell>
                   <List>
                     {order.items.map((product) => (
@@ -73,6 +77,9 @@ function OrderPage() {
                   <Typography>{order.status}</Typography>
                 </TableCell>
                 <TableCell>{order.shippingAddress}</TableCell>
+                <TableCell>
+                  <Typography>{calculateTotal(order.items)}$</Typography>
+                </TableCell>
                 <TableCell>
                   <Typography>
                     {new Date(order.updatedAt).toLocaleString('vi-VN')}
