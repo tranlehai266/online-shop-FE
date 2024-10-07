@@ -18,7 +18,6 @@ apiService.interceptors.request.use(
 
 apiService.interceptors.response.use(
   (response) => {
-    const message = response.message || "No message found";
     return response;
   },
   function (error) {

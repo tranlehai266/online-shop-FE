@@ -9,7 +9,6 @@ import BlankLayout from "../layouts/BlankLayout";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import NotFoundPage from "../pages/NotFoundPage";
-import AuthRequire from "./AuthRequire";
 import VerifiedPage from "../pages/VerifiedPage";
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import loginTheme from "../theme/logintheme";

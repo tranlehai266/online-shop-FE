@@ -30,7 +30,6 @@ import FUploadImage from "../form/FUploadImage";
 function CategoriesSetting() {
   const [open, setOpen] = useState(false);
   const [editingCategoryId, setEditingCategoryId] = useState(null);
-  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   const categories = useSelector((state) => state.product.categories);
