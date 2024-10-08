@@ -72,7 +72,7 @@ export const deleteProduct = (productId) => async (dispatch) => {
   dispatch(slice.actions.startLoading());
   try {
     await apiService.delete(`/admin/product/${productId}`);
-    dispatch(getProducts());
+    dispatch(getProducts("default"));
   } catch (error) {
     dispatch(slice.actions.hasError());
   }
@@ -88,6 +88,19 @@ export const deleteCategory = (categoryId) => async (dispatch) => {
   }
 };
 
-
+export const contactMail =
+  ({ email, name, message }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      await apiService.post("/admin/contact", {
+        email,
+        name,
+        message,
+      });
+    } catch (error) {
+      dispatch(slice.actions.hasError());
+    }
+  };
 
 export default slice.reducer;

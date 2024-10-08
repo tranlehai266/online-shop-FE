@@ -32,6 +32,7 @@ import FormProvider from "../form/FormProvider";
 import FTextField from "../form/FTextField";
 import { useForm } from "react-hook-form";
 import FUploadImage from "../form/FUploadImage";
+import { toast } from "react-toastify";
 
 function ProductsSetting() {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ function ProductsSetting() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
+  const sort = "default";
   const defaultValues = {
     name: "",
     price: "",
@@ -50,8 +51,6 @@ function ProductsSetting() {
     old_price: "",
     description: "",
     image_url: "",
-    rating: "",
-    popularity: "",
     category: "",
   };
 
@@ -62,12 +61,13 @@ function ProductsSetting() {
   const { handleSubmit, reset, setValue } = methods;
 
   useEffect(() => {
-    dispatch(getProducts());
-    dispatch(getCategory())
+    dispatch(getProducts(sort));
+    dispatch(getCategory());
   }, [dispatch]);
 
   const handleDeleteProduct = (productId) => {
     dispatch(deleteProduct(productId));
+    toast.success("Delete Product Success");
   };
 
   const handleOpenModal = (product) => {
@@ -80,8 +80,6 @@ function ProductsSetting() {
         old_price: product.old_price,
         description: product.description,
         image_url: product.image_url,
-        rating: product.rating,
-        popularity: product.popularity,
         category: product.category._id,
       });
       setSelectedCategory(product.category._id);
@@ -119,9 +117,10 @@ function ProductsSetting() {
       category: selectedCategory,
     };
     if (editingProductId) {
+      toast.success("Update Product Success");
       dispatch(updateProduct(editingProductId, productData));
-      console.log(data);
     } else {
+      toast.success("Create Product Success");
       dispatch(createProduct(productData));
     }
     handleCloseModal();
@@ -177,7 +176,7 @@ function ProductsSetting() {
             ).map((product) => (
               <TableRow key={product._id}>
                 <TableCell>{product._id}</TableCell>
-                <TableCell>{product.category.name}</TableCell>
+                <TableCell>{product?.category?.name}</TableCell>
 
                 <TableCell>{product.name}</TableCell>
                 <TableCell>
@@ -255,8 +254,6 @@ function ProductsSetting() {
               <FTextField name="old_price" label="Old Price" fullWidth />
               <FTextField name="item_id" label="Item Id" fullWidth />
               <FTextField name="description" label="description" fullWidth />
-              <FTextField name="rating" label="Rating" fullWidth />
-              <FTextField name="popularity" label="Popularity" fullWidth />
               <FormControl fullWidth>
                 <InputLabel>Category</InputLabel>
                 <Select

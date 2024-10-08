@@ -142,12 +142,11 @@ const DetailPage = () => {
                   bgcolor: "error.main",
                   color: "white",
                   textAlign: "center",
-                  width: "40px",
+                  width: "60px",
                   borderRadius: 1,
                 }}
               >
-                -
-                {Math.round(
+                -{Math.round(
                   ((productDetail.old_price - productDetail.price) /
                     productDetail.old_price) *
                     100

@@ -77,7 +77,7 @@ const slice = createSlice({
     createProductSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
-      state.products.push(action.payload);
+      state.products.unshift(action.payload);
     },
   },
 });
@@ -108,14 +108,13 @@ export const getProductDetail = (productId) => async (dispatch) => {
 };
 
 export const getProductCategory =
-  (categoryId, limit = 20, sort = "default") =>
+  (categoryId, limit = 20, sort) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       const response = await apiService.get(
         `/products/category/${categoryId}?limit=${limit}&sort=${sort}`
       );
-      console.log("product category", response);
       dispatch(slice.actions.getProductCategorySuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError());
@@ -126,6 +125,7 @@ export const getCategory = () => async (dispatch) => {
   dispatch(slice.actions.startLoading());
   try {
     const response = await apiService.get("/categories");
+    console.log("129 response", response.data.data);
     dispatch(slice.actions.getCategorySuccess(response.data.data));
   } catch (error) {
     dispatch(slice.actions.hasError());
@@ -197,18 +197,9 @@ export const createCategry =
       dispatch(slice.actions.hasError(error.message));
     }
   };
+
 export const createProduct =
-  ({
-    name,
-    item_id,
-    price,
-    old_price,
-    description,
-    image_url,
-    category,
-    popularity,
-    rating,
-  }) =>
+  ({ name, item_id, price, old_price, description, image_url, category }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
@@ -224,10 +215,9 @@ export const createProduct =
         description,
         image_url,
         category,
-        popularity,
-        rating,
       });
       dispatch(slice.actions.createProductSuccess(response.data.data));
+      dispatch(getProducts("default"))
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }

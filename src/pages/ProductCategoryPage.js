@@ -36,7 +36,7 @@ const ProductCategoryPage = () => {
   const navigate = useNavigate();
   const { isAuthenticated, user } = auth;
   const userId = user?._id;
-  console.log("products category", products);
+
   useEffect(() => {
     dispatch(getCategory());
     if (categoryId) {
@@ -45,6 +45,8 @@ const ProductCategoryPage = () => {
       });
     }
   }, [dispatch, categoryId, sort]);
+
+;
 
   const addToCart = (product) => {
     if (!isAuthenticated) {
@@ -91,7 +93,6 @@ const ProductCategoryPage = () => {
         mb={3}
         sx={{ textTransform: "uppercase" }}
       >
-        {/* Tên danh mục hiện tại */}
         {categories.find((category) => category._id === categoryId)?.name}
       </Typography>
 
@@ -141,9 +142,10 @@ const ProductCategoryPage = () => {
               <MenuItem value="priceHighToLow">Price: High to Low</MenuItem>
             </Select>
           </Box>
+
           <Grid container spacing={3}>
             {products.slice(0, visible).map((product) => (
-              <Grid item xs={12} sm={6} md={4} key={product._id}>
+              <Grid item="true" xs={12} sm={6} md={4} key={product._id}>
                 <Box
                   sx={{
                     position: "relative",
@@ -200,7 +202,7 @@ const ProductCategoryPage = () => {
                         bottom: "18px",
                         left: "86%",
                         transform: "translateX(-50%)",
-                        opacity: 0,
+                        // opacity: 0,
                         transition: "opacity 0.3s",
                         minWidth: "20px",
                       }}
@@ -234,6 +236,7 @@ const ProductCategoryPage = () => {
               </Grid>
             ))}
           </Grid>
+
           {visible < products.length && (
             <Button
               onClick={loadMore}

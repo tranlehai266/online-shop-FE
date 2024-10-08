@@ -63,7 +63,7 @@ function Products() {
       </Box>
       <Grid container spacing={1} padding={3} justifyContent="center">
         {products.slice(0, 12).map((product) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={product._id}>
+          <Grid item="true" xs={12} sm={6} md={4} lg={3} key={product._id}>
             <Box
               sx={{
                 position: "relative",

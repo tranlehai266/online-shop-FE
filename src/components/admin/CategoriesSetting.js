@@ -26,6 +26,7 @@ import { useForm } from "react-hook-form";
 import FormProvider from "../form/FormProvider";
 import FTextField from "../form/FTextField";
 import FUploadImage from "../form/FUploadImage";
+import { toast } from "react-toastify";
 
 function CategoriesSetting() {
   const [open, setOpen] = useState(false);
@@ -84,13 +85,16 @@ function CategoriesSetting() {
 
   const handleDeleteCategory = (categoryId) => {
     dispatch(deleteCategory(categoryId));
+    toast.success("Delete Category Success");
   };
 
   const onSubmit = async (data) => {
-    console.log(data)
+    console.log(data);
     if (editingCategoryId) {
+      toast.success("Update Category Success");
       dispatch(updateCategory(editingCategoryId, data));
     } else {
+      toast.success("Create Category Success");
       dispatch(createCategry(data));
     }
     handleCloseModal();

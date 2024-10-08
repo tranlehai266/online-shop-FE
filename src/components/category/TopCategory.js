@@ -30,7 +30,7 @@ function TopCategory() {
       <Grid container spacing={5} padding={3} justifyContent="center">
         {categories &&
           categories.map((category) => (
-            <Grid item xs={12} sm={6} md={3} lg={3} key={category._id}>
+            <Grid item="true" xs={12} sm={6} md={3} lg={3} key={category._id}>
               <Card
                 sx={{
                   borderRadius: 2,

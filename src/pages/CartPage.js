@@ -93,7 +93,7 @@ const CartPage = () => {
       </Box>
 
       <Grid container spacing={8} justifyContent="center">
-        <Grid item xs={12} md={8}>
+        <Grid item="true" xs={12} md={8}>
           <TableContainer
             component={Paper}
             sx={{
@@ -196,7 +196,7 @@ const CartPage = () => {
           </Button>
         </Grid>
 
-        <Grid item xs={12} md={4}>
+        <Grid item="true" xs={12} md={4}>
           <Box sx={{ bgcolor: "#f5f5f5", pl: "20px" }}>
             <Typography variant="h6" sx={{ mb: 2 }}>
               CART TOTALS

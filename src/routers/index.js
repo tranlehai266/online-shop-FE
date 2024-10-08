@@ -19,6 +19,7 @@ import ResetPasswordPage from "../pages/ResetPasswordPage";
 import OrderPage from "../pages/OrderPage";
 import AdminPage from "../pages/AdminPage";
 import AdminRoute from "./AdminRoute";
+import ContactPage from "../pages/ContactPage";
 
 function Router() {
   return (
@@ -32,6 +33,7 @@ function Router() {
         <Route path="my-order" element={<OrderPage />} />
         <Route path="cart" element={<CartPage />} />
         <Route path="shop" element={<Shop />} />
+        <Route path="contact" element={<ContactPage />} />
         <Route
           path="product-category/:categoryId"
           element={<ProductCategoryPage />}

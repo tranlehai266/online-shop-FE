@@ -231,6 +231,7 @@ const Shop = () => {
               </Grid>
             ))}
           </Grid>
+
           {visible < products.length && (
             <Button
               onClick={loadMore}

@@ -153,6 +153,13 @@ function MainHeader() {
             >
               Shop
             </Button>
+            <Button
+              component={Link}
+              to="/contact"
+              sx={{ color: "#fff", fontWeight: "600", fontSize: "16px" }}
+            >
+              Contact 
+            </Button>
           </Box>
 
           <SearchItem />
