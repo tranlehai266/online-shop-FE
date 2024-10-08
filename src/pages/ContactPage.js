@@ -11,6 +11,14 @@ import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PhoneIcon from "@mui/icons-material/Phone";
 import { toast } from "react-toastify";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const ContactSchema = yup.object().shape({
+  name: yup.string().required("Name is required"),
+  email: yup.string().required("Email is required"),
+  message: yup.string().required("Message is required"),
+});
 
 function ContactPage() {
   const dispatch = useDispatch();
@@ -22,6 +30,7 @@ function ContactPage() {
   };
 
   const methods = useForm({
+    resolver: yupResolver(ContactSchema),
     defaultValues,
   });
 
@@ -36,6 +45,7 @@ function ContactPage() {
       toast.success("Send Success");
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 

@@ -21,6 +21,7 @@ import { deleteCart, getCart } from "../../features/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Stack } from "@mui/material";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 const pages = ["Home", "Shop"];
 
@@ -72,6 +73,13 @@ function MainHeader() {
       navigate("/login");
       handleCloseUserMenu();
       toast.success("Logout Success");
+    });
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", 
     });
   };
 
@@ -158,7 +166,7 @@ function MainHeader() {
               to="/contact"
               sx={{ color: "#fff", fontWeight: "600", fontSize: "16px" }}
             >
-              Contact 
+              Contact
             </Button>
           </Box>
 
@@ -363,6 +371,22 @@ function MainHeader() {
           <Typography sx={{ ml: "5px", mt: "3px", width: "120px" }}>
             {user?.name}
           </Typography>
+
+          <IconButton
+            onClick={scrollToTop}
+            sx={{
+              position: "fixed",
+              bottom: 16,
+              right: 16,
+              backgroundColor: "#000",
+              color: "#fff",
+              "&:hover": {
+                backgroundColor: "#444",
+              },
+            }}
+          >
+            <ArrowUpwardIcon />
+          </IconButton>
         </Toolbar>
       </Container>
     </AppBar>
