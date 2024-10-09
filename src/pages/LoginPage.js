@@ -138,6 +138,8 @@ function LoginPage() {
             Create Account
           </LoadingButton>
           <GoogleLogin
+            size="large"
+            theme="filled_black"
             onSuccess={(credentialResponse) => {
               const googleToken = credentialResponse.credential;
               loginWithGoogle(googleToken, () => {
