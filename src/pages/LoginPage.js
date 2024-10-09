@@ -12,6 +12,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useNavigate, useLocation, Link as RouterLink } from "react-router-dom";
 import { FCheckbox, FormProvider, FTextField } from "../components/form";
+import { GoogleLogin } from "@react-oauth/google";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -34,7 +35,7 @@ function LoginPage() {
   const location = useLocation();
   const auth = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-
+  const { loginWithGoogle } = auth;
   const methods = useForm({
     resolver: yupResolver(LoginSchema),
     defaultValues,
@@ -126,7 +127,6 @@ function LoginPage() {
           >
             Login
           </LoadingButton>
-
           <LoadingButton
             fullWidth
             size="large"
@@ -137,6 +137,19 @@ function LoginPage() {
           >
             Create Account
           </LoadingButton>
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              const googleToken = credentialResponse.credential;
+              loginWithGoogle(googleToken, () => {
+                const from = location.state?.from?.pathname || "/";
+                navigate(from, { replace: true });
+              });
+            }}
+            onError={() => {
+              console.log("Login Failed");
+            }}
+          />
+          ;
         </Stack>
       </FormProvider>
     </Container>

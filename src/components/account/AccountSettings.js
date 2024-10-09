@@ -69,7 +69,7 @@ function AccountSettings() {
         alignItems="center"
         minHeight="50vh"
       >
-        <Grid2 item xs={12} sm={8} md={6} lg={4}>
+        <Grid2 item="true" xs={12} sm={8} md={6} lg={4}>
           <Card
             sx={{
               p: 4,

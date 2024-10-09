@@ -3,6 +3,7 @@ import apiService from "../app/apiService";
 import { isValidToken } from "../utils/jwt";
 import { toast } from "react-toastify";
 
+
 const initialState = {
   isInitialized: false,
   isAuthenticated: false,
@@ -195,6 +196,31 @@ function AuthProvider({ children }) {
     callback();
   };
 
+  const loginWithGoogle = async (googleToken, callback) => {
+    try {
+      const response = await apiService.post("/auth/google-login", {
+        googleToken,
+      });
+      console.log("204 google", response)
+      const { user, accessToken } = response.data.data;
+
+      if (user.isDeleted) {
+        toast.error("Your account has been disabled. Please contact support.");
+        return;
+      }
+
+      setSession(accessToken);
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: { user },
+      });
+      callback();
+    } catch (error) {
+      console.error("Google login failed", error);
+      toast.error("Login with Google failed");
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -205,6 +231,7 @@ function AuthProvider({ children }) {
         logout,
         updateProfile,
         resetPassword,
+        loginWithGoogle,
       }}
     >
       {children}
