@@ -67,7 +67,7 @@ function ContactPage() {
           </Typography>
           <Stack direction="column" spacing={4} sx={{ marginTop: "30px" }}>
             <Box display="flex" alignItems="center">
-              <LocationOnIcon color="primary" sx={{ fontSize: "50px" }} />
+              <LocationOnIcon color="primary" sx={{ fontSize: "35px" }} />
               <Box ml="10px">
                 <Typography fontWeight="bold">Adress</Typography>
                 <Typography variant="body1" sx={{ opacity: "0.6" }}>
@@ -76,7 +76,7 @@ function ContactPage() {
               </Box>
             </Box>
             <Box display="flex" alignItems="center">
-              <PhoneIcon color="primary" sx={{ fontSize: "50px" }} />
+              <PhoneIcon color="primary" sx={{ fontSize: "35px" }} />
               <Box ml="10px">
                 <Typography fontWeight="bold">Phone</Typography>
                 <Typography variant="body1" sx={{ opacity: "0.6" }}>
@@ -85,7 +85,7 @@ function ContactPage() {
               </Box>
             </Box>
             <Box display="flex" alignItems="center">
-              <EmailIcon color="primary" sx={{ fontSize: "50px" }} />
+              <EmailIcon color="primary" sx={{ fontSize: "35px" }} />
               <Box ml="10px">
                 <Typography fontWeight="bold">Email</Typography>
                 <Typography variant="body1" sx={{ opacity: "0.6" }}>

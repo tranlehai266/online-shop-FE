@@ -94,7 +94,6 @@ const Shop = () => {
         <Box
           sx={{
             width: { xs: "100%", md: "20%" },
-            pr: 2,
             borderRight: "1px solid #e0e0e0",
           }}
         >
@@ -179,13 +178,20 @@ const Shop = () => {
                       <Typography variant="h6" component="div">
                         {product.name}
                       </Typography>
-                      <Typography>Rating: {product.rating}</Typography>
-                      <Typography>Popularity: {product.popularity}</Typography>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        gutterBottom
+                      >
+                        Rating: {product.rating} | Popularity:{" "}
+                        {product.popularity}
+                      </Typography>
                       <Rating
-                        name="half-rating-read"
+                        name="read-only"
                         value={getRatingByPopularity(product.popularity)}
                         precision={0.5}
                         readOnly
+                        size="small"
                       />
                     </CardContent>
                     <Button

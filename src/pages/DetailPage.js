@@ -146,7 +146,8 @@ const DetailPage = () => {
                   borderRadius: 1,
                 }}
               >
-                -{Math.round(
+                -
+                {Math.round(
                   ((productDetail.old_price - productDetail.price) /
                     productDetail.old_price) *
                     100
@@ -205,7 +206,7 @@ const DetailPage = () => {
           Related Products
         </Typography>
         <Grid container spacing={8} justifyContent="center">
-          {productCategory.slice(11, 20).map((product) => (
+          {productCategory.slice(0, 6).map((product) => (
             <Grid item xs={12} sm={6} md={4} key={product._id}>
               <Card>
                 <CardMedia
@@ -213,10 +214,10 @@ const DetailPage = () => {
                   image={product.image_url}
                   alt={product.name}
                   sx={{
-                    width: "300px",
-                    height: "200px",
+                    width: "320px",
+                    height: "250px",
                     cursor: "pointer",
-                    objectFit: "contain",
+                    objectFit:"fill"
                   }}
                   onClick={() => handleRelatedProductClick(product._id)}
                 />

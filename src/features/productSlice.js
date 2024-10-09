@@ -155,6 +155,7 @@ export const updateProduct = (productId, updateData) => async (dispatch) => {
       updateData
     );
     dispatch(slice.actions.updateProductSuccess(response.data.data));
+    dispatch(getProducts("default"))
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
   }

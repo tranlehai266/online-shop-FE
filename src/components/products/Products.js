@@ -58,7 +58,7 @@ function Products() {
     <Stack>
       <Box>
         <Typography variant="h4" sx={{ textAlign: "center", padding: "25px" }}>
-          Latest Products
+          Some products
         </Typography>
       </Box>
       <Grid container spacing={1} padding={3} justifyContent="center">

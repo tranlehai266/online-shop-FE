@@ -16,6 +16,7 @@ import {
   ListItem,
   ListItemText,
   ListItemAvatar,
+  Container,
 } from "@mui/material";
 import useAuth from "../hooks/useAuth";
 
@@ -38,7 +39,10 @@ function OrderPage() {
   }, [dispatch, user, isLoading]);
 
   return (
-    <Box>
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+        <Typography variant="h4">My Order</Typography>
+      </Box>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -82,7 +86,7 @@ function OrderPage() {
                 </TableCell>
                 <TableCell>
                   <Typography>
-                    {new Date(order.updatedAt).toLocaleString('vi-VN')}
+                    {new Date(order.updatedAt).toLocaleString("vi-VN")}
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -90,7 +94,7 @@ function OrderPage() {
           </TableBody>
         </Table>
       </TableContainer>
-    </Box>
+    </Container>
   );
 }
 

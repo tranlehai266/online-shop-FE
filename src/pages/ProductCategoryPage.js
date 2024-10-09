@@ -46,8 +46,6 @@ const ProductCategoryPage = () => {
     }
   }, [dispatch, categoryId, sort]);
 
-;
-
   const addToCart = (product) => {
     if (!isAuthenticated) {
       toast.error("You need to log in");
@@ -184,8 +182,14 @@ const ProductCategoryPage = () => {
                       <Typography variant="h6" component="div">
                         {product.name}
                       </Typography>
-                      <Typography>Rating: {product.rating}</Typography>
-                      <Typography>Popularity: {product.popularity}</Typography>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        gutterBottom
+                      >
+                        Rating: {product.rating} | Popularity:
+                        {product.popularity}
+                      </Typography>
                       <Rating
                         name="half-rating-read"
                         value={getRatingByPopularity(product.popularity)}
@@ -199,10 +203,10 @@ const ProductCategoryPage = () => {
                       color="primary"
                       sx={{
                         position: "absolute",
-                        bottom: "18px",
+                        bottom: "14px",
                         left: "86%",
                         transform: "translateX(-50%)",
-                        // opacity: 0,
+                        opacity: 0,
                         transition: "opacity 0.3s",
                         minWidth: "20px",
                       }}
