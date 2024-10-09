@@ -20,6 +20,7 @@ import OrderPage from "../pages/OrderPage";
 import AdminPage from "../pages/AdminPage";
 import AdminRoute from "./AdminRoute";
 import ContactPage from "../pages/ContactPage";
+import AuthRequire from "./AuthRequire";
 
 function Router() {
   return (
@@ -29,7 +30,14 @@ function Router() {
       </Route>
 
       <Route path="/" element={<MainShop />}>
-        <Route path="account" element={<AccountPage />} />
+        <Route
+          path="account"
+          element={
+            <AuthRequire>
+              <AccountPage />
+            </AuthRequire>
+          }
+        />
         <Route path="my-order" element={<OrderPage />} />
         <Route path="cart" element={<CartPage />} />
         <Route path="shop" element={<Shop />} />
