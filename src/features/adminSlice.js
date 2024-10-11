@@ -24,7 +24,6 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.users = action.payload;
-      console.log("25 user", state.users);
     },
     deleteUserSuccess(state, action) {
       state.isLoading = false;

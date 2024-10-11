@@ -113,7 +113,6 @@ function AuthProvider({ children }) {
       password,
     });
     const { user, accessToken } = response.data.data;
-    console.log("user", response.data.data);
     if (user.isDeleted) {
       toast.error("Your account has been disabled. Please contact support.");
       return;
@@ -169,7 +168,7 @@ function AuthProvider({ children }) {
         password,
       });
       const updatedUser = response.data.data;
-      console.log("updatedUser", updatedUser);
+    
 
       dispatch({
         type: UPDATE_PROFILE,
@@ -201,7 +200,7 @@ function AuthProvider({ children }) {
       const response = await apiService.post("/auth/google-login", {
         googleToken,
       });
-      console.log("204 google", response)
+
       const { user, accessToken } = response.data.data;
 
       if (user.isDeleted) {

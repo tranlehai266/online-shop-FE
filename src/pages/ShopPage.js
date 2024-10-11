@@ -70,11 +70,11 @@ const Shop = () => {
     setVisible((prev) => prev + 6);
   };
 
-  const getRatingByPopularity = (popularity) => {
-    if (popularity >= 80) return 5;
-    if (popularity >= 60) return 4;
-    if (popularity >= 40) return 3;
-    if (popularity >= 20) return 2;
+  const getRatingByRating= (rating) => {
+    if (rating >= 5) return 5;
+    if (rating >= 4) return 4;
+    if (rating >= 3) return 3;
+    if (rating >= 2) return 2;
     return 1;
   };
 
@@ -139,7 +139,7 @@ const Shop = () => {
           </Box>
           <Grid container spacing={3}>
             {products.slice(0, visible).map((product) => (
-              <Grid item xs={12} sm={6} md={4} key={product._id}>
+              <Grid item="true" xs={12} sm={6} md={4} key={product._id}>
                 <Box
                   sx={{
                     position: "relative",
@@ -188,7 +188,7 @@ const Shop = () => {
                       </Typography>
                       <Rating
                         name="read-only"
-                        value={getRatingByPopularity(product.popularity)}
+                        value={getRatingByRating(product.rating)}
                         precision={0.5}
                         readOnly
                         size="small"

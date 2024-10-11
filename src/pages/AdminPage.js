@@ -37,7 +37,7 @@ function AdminPage() {
   ];
 
   return (
-    <Container maxWidth="lg" sx={{ padding: 3 }}>
+    <Container sx={{ padding: 3, minWidth: "1300px" }}>
       <Typography variant="h4" gutterBottom>
         Admin Dashboard
       </Typography>

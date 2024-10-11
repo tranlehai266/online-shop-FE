@@ -58,7 +58,6 @@ function AccountPassword() {
   }, [user, reset]);
 
   const onSubmit = async (data) => {
-    console.log("60", data);
     await updateProfile({ password: data.password }, () => {
       toast.success("Change Password Success");
     });

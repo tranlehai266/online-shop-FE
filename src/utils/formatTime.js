@@ -13,7 +13,7 @@ export function fTimestamp(date) {
 }
 
 export function fDateTimeSuffix(date) {
-  return format(new Date(date), "dd/MM/yyyy hh:mm p");
+  return format(new Date(date), "dd/MM/yyyy hh:mm a");
 }
 
 export function fToNow(date) {

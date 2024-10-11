@@ -29,8 +29,6 @@ const DetailPage = () => {
   const productDetail = useSelector((state) => state.product.productDetail);
   const productIds = useSelector((state) => state.cart.productIds);
   const productCategory = useSelector((state) => state.product.productCategory);
-  console.log("31", productDetail);
-  console.log("32", productCategory);
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
   const userId = user?._id;
@@ -206,49 +204,55 @@ const DetailPage = () => {
           Related Products
         </Typography>
         <Grid container spacing={8} justifyContent="center">
-          {productCategory.slice(0, 6).map((product) => (
-            <Grid item xs={12} sm={6} md={4} key={product._id}>
-              <Card>
-                <CardMedia
-                  component="img"
-                  image={product.image_url}
-                  alt={product.name}
-                  sx={{
-                    width: "320px",
-                    height: "250px",
-                    cursor: "pointer",
-                    objectFit:"fill"
-                  }}
-                  onClick={() => handleRelatedProductClick(product._id)}
-                />
-                <Box sx={{ p: 2 }}>
-                  <Typography variant="subtitle1">{product.name}</Typography>
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                    {product.old_price !== "No old price" && (
+          {productCategory
+            .filter((product) => product._id !== productDetail._id)
+            .slice(0, 6)
+            .map((product) => (
+              <Grid item xs={12} sm={6} md={4} key={product._id}>
+                <Card>
+                  <CardMedia
+                    component="img"
+                    image={product.image_url}
+                    alt={product.name}
+                    sx={{
+                      width: "320px",
+                      height: "250px",
+                      cursor: "pointer",
+                      objectFit: "fill",
+                    }}
+                    onClick={() => handleRelatedProductClick(product._id)}
+                  />
+                  <Box sx={{ p: 2 }}>
+                    <Typography variant="subtitle1">{product.name}</Typography>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                      {product.old_price !== "No old price" && (
+                        <Typography
+                          variant="body1"
+                          textAlign="center"
+                          mt="10px"
+                          fontWeight="bold"
+                          sx={{
+                            textDecoration: "line-through",
+                            opacity: "0.7",
+                          }}
+                        >
+                          {`$${product.old_price}`}
+                        </Typography>
+                      )}
                       <Typography
                         variant="body1"
+                        color="error"
                         textAlign="center"
                         mt="10px"
                         fontWeight="bold"
-                        sx={{ textDecoration: "line-through", opacity: "0.7" }}
                       >
-                        {`$${product.old_price}`}
+                        {`$${product.price}`}
                       </Typography>
-                    )}
-                    <Typography
-                      variant="body1"
-                      color="error"
-                      textAlign="center"
-                      mt="10px"
-                      fontWeight="bold"
-                    >
-                      {`$${product.price}`}
-                    </Typography>
+                    </Box>
                   </Box>
-                </Box>
-              </Card>
-            </Grid>
-          ))}
+                </Card>
+              </Grid>
+            ))}
         </Grid>
       </Box>
     </Box>

@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 
 import { deleteUser, getAllUsers } from "../../features/adminSlice";
+import { fDateTimeSuffix } from "../../utils/formatTime";
 
 function UsersSetting() {
   const dispatch = useDispatch();
@@ -48,7 +49,7 @@ function UsersSetting() {
                 <TableCell>{user.role}</TableCell>
                 <TableCell>
                   <Box sx={{ display: "flex", alignItems: "center" }}>
-                    {new Date(user.createdAt).toLocaleString('vi-VN')}
+                    {fDateTimeSuffix(user.createdAt)}
                     <Button
                       sx={{ ml: "20px" }}
                       variant="contained"

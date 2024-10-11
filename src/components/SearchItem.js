@@ -25,11 +25,15 @@ const SearchItem = () => {
   };
 
   useEffect(() => {
-    if (searchQuery) {
-      dispatch(getSearchProduct(searchQuery));
-    } else {
-      dispatch(clearSearchResults());
-    }
+    const delayDebounceFn = setTimeout(() => {
+      if (searchQuery) {
+        dispatch(getSearchProduct(searchQuery));
+      } else {
+        dispatch(clearSearchResults());
+      }
+    }, 500); 
+
+    return () => clearTimeout(delayDebounceFn); 
   }, [dispatch, searchQuery]);
 
   return (

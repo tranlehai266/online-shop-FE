@@ -27,6 +27,7 @@ import FormProvider from "../form/FormProvider";
 import FTextField from "../form/FTextField";
 import FUploadImage from "../form/FUploadImage";
 import { toast } from "react-toastify";
+import { fDateTimeSuffix } from "../../utils/formatTime";
 
 function CategoriesSetting() {
   const [open, setOpen] = useState(false);
@@ -89,7 +90,6 @@ function CategoriesSetting() {
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
     if (editingCategoryId) {
       toast.success("Update Category Success");
       dispatch(updateCategory(editingCategoryId, data));
@@ -135,9 +135,7 @@ function CategoriesSetting() {
                     alt={category.name}
                   />
                 </TableCell>
-                <TableCell>
-                  {new Date(category.createdAt).toLocaleString()}
-                </TableCell>
+                <TableCell>{fDateTimeSuffix(category.createdAt)}</TableCell>
                 <TableCell>
                   <Box
                     sx={{ display: "flex", gap: 2, flexDirection: "column" }}

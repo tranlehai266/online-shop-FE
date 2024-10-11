@@ -19,12 +19,12 @@ import {
   Container,
 } from "@mui/material";
 import useAuth from "../hooks/useAuth";
+import { fDateTimeSuffix } from "../utils/formatTime";
 
 function OrderPage() {
   const dispatch = useDispatch();
   const { user, isLoading } = useAuth();
   const items = useSelector((state) => state.cart.itemsStatus);
-  console.log(items);
 
   const calculateTotal = (items) => {
     return items.reduce((acc, product) => {
@@ -40,7 +40,7 @@ function OrderPage() {
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+      <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
         <Typography variant="h4">My Order</Typography>
       </Box>
       <TableContainer component={Paper}>
@@ -85,9 +85,7 @@ function OrderPage() {
                   <Typography>{calculateTotal(order.items)}$</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography>
-                    {new Date(order.updatedAt).toLocaleString("vi-VN")}
-                  </Typography>
+                  <Typography>{fDateTimeSuffix(order.updatedAt)}</Typography>
                 </TableCell>
               </TableRow>
             ))}

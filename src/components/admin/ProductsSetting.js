@@ -20,6 +20,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  TextField, // Import TextField cho ô tìm kiếm
 } from "@mui/material";
 import {
   createProduct,
@@ -43,6 +44,7 @@ function ProductsSetting() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [searchTerm, setSearchTerm] = useState("");
   const sort = "default";
   const defaultValues = {
     name: "",
@@ -138,8 +140,21 @@ function ProductsSetting() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
 
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
+      <Box sx={{ mb: 2 }}>
+        <TextField
+          label="Search Products"
+          variant="outlined"
+          fullWidth
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </Box>
       <Box sx={{ mb: 2 }}>
         <Button
           variant="contained"
@@ -168,16 +183,15 @@ function ProductsSetting() {
           </TableHead>
           <TableBody>
             {(rowsPerPage > 0
-              ? products.slice(
+              ? filteredProducts.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )
-              : products
+              : filteredProducts
             ).map((product) => (
               <TableRow key={product._id}>
                 <TableCell>{product._id}</TableCell>
                 <TableCell>{product?.category?.name}</TableCell>
-
                 <TableCell>{product.name}</TableCell>
                 <TableCell>
                   <img
@@ -217,7 +231,7 @@ function ProductsSetting() {
             ))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={8} />
+                <TableCell colSpan={10} />
               </TableRow>
             )}
           </TableBody>
@@ -226,7 +240,7 @@ function ProductsSetting() {
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={products.length}
+        count={filteredProducts.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
@@ -282,7 +296,7 @@ function ProductsSetting() {
             <DialogActions>
               <Button onClick={handleCloseModal}>Cancel</Button>
               <Button type="submit" variant="contained">
-                {editingProductId ? "Update" : "Create "}
+                {editingProductId ? "Update" : "Create"}
               </Button>
             </DialogActions>
           </FormProvider>

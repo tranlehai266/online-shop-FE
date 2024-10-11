@@ -3,19 +3,18 @@ import { createTheme } from "@mui/material/styles";
 const loginTheme = createTheme({
   palette: {
     primary: {
-      lighter: "#6d6d6d", // Màu xanh nhạt
-      light: "#6d6d62", // Màu xanh sáng
-      main: "#000", // Màu xanh chính
-      dark: "#6d6d6d", // Màu xanh đậm
-      darker: "#6d6d6d", // Màu xanh đậm hơn
-      contrastText: "#fff", // Màu chữ đối lập
+      lighter: "#6d6d6d",
+      main: "#000",
+      dark: "#6d6d6d",
+      darker: "#6d6d6d",
+      contrastText: "#fff",
     },
     secondary: {
-      main: "#0023", // Màu phụ
+      main: "#0023",
     },
   },
   shape: {
-    borderRadius: 8, // Bo góc
+    borderRadius: 8,
   },
 });
 

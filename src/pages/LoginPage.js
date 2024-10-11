@@ -18,6 +18,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import useAuth from "../hooks/useAuth";
 import Logo from "../images/logo__shop.png";
+import { toast } from "react-toastify";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -146,6 +147,7 @@ function LoginPage() {
                 const from = location.state?.from?.pathname || "/";
                 navigate(from, { replace: true });
               });
+              toast.success("Login Success")
             }}
             onError={() => {
               console.log("Login Failed");

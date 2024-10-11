@@ -67,7 +67,7 @@ export const handleAddToCart =
         quantity,
         userId,
       });
-      console.log(response);
+
       dispatch(slice.actions.addToCartSuccess(response.data.data.cartItem));
       dispatch(getCart());
       toast.success("The product has been added to the cart");
@@ -92,7 +92,7 @@ export const updateQuantity =
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      console.log("Updating quantities with:", cartItemId, quantity);
+
       const response = await apiService.put("/cart/items", {
         cartItemId,
         quantity,
@@ -131,7 +131,7 @@ export const completePayment =
         orderID,
         shippingAddress,
       });
-      console.log("payment", response);
+      
       dispatch(slice.actions.completePaymentSuccess(response.data.data));
       dispatch(getCart());
     } catch (error) {

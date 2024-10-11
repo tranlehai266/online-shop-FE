@@ -27,7 +27,6 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.products = action.payload;
-      console.log("product 28", state.products);
     },
     getProductDetailSuccess(state, action) {
       state.isLoading = false;
@@ -48,7 +47,6 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.productSearch = action.payload;
-      console.log(state.productSearch);
     },
     clearSearchResults(state) {
       state.productSearch = [];
@@ -100,7 +98,7 @@ export const getProductDetail = (productId) => async (dispatch) => {
   dispatch(slice.actions.startLoading());
   try {
     const response = await apiService.get(`/products/product/${productId}`);
-    console.log("detail", response);
+
     dispatch(slice.actions.getProductDetailSuccess(response.data.data));
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
@@ -125,7 +123,6 @@ export const getCategory = () => async (dispatch) => {
   dispatch(slice.actions.startLoading());
   try {
     const response = await apiService.get("/categories");
-    console.log("129 response", response.data.data);
     dispatch(slice.actions.getCategorySuccess(response.data.data));
   } catch (error) {
     dispatch(slice.actions.hasError());
@@ -155,7 +152,7 @@ export const updateProduct = (productId, updateData) => async (dispatch) => {
       updateData
     );
     dispatch(slice.actions.updateProductSuccess(response.data.data));
-    dispatch(getProducts("default"))
+    dispatch(getProducts("default"));
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
   }
@@ -218,7 +215,7 @@ export const createProduct =
         category,
       });
       dispatch(slice.actions.createProductSuccess(response.data.data));
-      dispatch(getProducts("default"))
+      dispatch(getProducts("default"));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }

@@ -24,9 +24,7 @@ function Products() {
   const navigate = useNavigate();
   const auth = useAuth();
   const { isAuthenticated, user } = auth;
-  console.log("27", user);
   const userId = user?._id;
-  console.log(userId);
 
   useEffect(() => {
     dispatch(getProducts());
@@ -51,7 +49,6 @@ function Products() {
   };
   const handleClick = (id) => {
     navigate(`/detail/${id}`);
-    console.log(id);
   };
 
   return (

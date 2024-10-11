@@ -6,30 +6,30 @@ import {
 } from "@mui/material/styles";
 
 const PRIMARY = {
-  lighter: "#ffee58", // Màu xanh nhạt
-  light: "#fab950", // Màu xanh sáng
-  main: "#303030	", // Màu xanh chính
-  dark: "#808080", // Màu xanh đậm
-  darker: "#f57f17", // Màu xanh đậm hơn
-  contrastText: "#fff", // Màu chữ đối lập
+  lighter: "#ffee58", 
+  light: "#fab950", 
+  main: "#303038	", 
+  dark: "#808080", 
+  darker: "#f57f17", 
+  contrastText: "#fff", 
 };
 
 const SECONDARY = {
-  lighter: "#fff3e0", // Màu cam nhạt
-  light: "#ffcc80", // Màu cam sáng
-  main: "#fb8c00", // Màu cam chính
-  dark: "#ef6c00", // Màu cam đậm
-  darker: "#e65100", // Màu cam đậm hơn
-  contrastText: "#fff", // Màu chữ đối lập
+  lighter: "#fff3e0", 
+  light: "#ffcc80", 
+  main: "#fb8c00", 
+  dark: "#ef6c00", 
+  darker: "#e65100", 
+  contrastText: "#fff", 
 };
 
 const SUCCESS = {
-  lighter: "#e8f5e9", // Màu xanh lá nhạt
-  light: "#81c784", // Màu xanh lá sáng
-  main: "#4caf50", // Màu xanh lá chính
-  dark: "#388e3c", // Màu xanh lá đậm
-  darker: "#2e7d32", // Màu xanh lá đậm hơn
-  contrastText: "#fff", // Màu chữ đối lập
+  lighter: "#e8f5e9", 
+  light: "#81c784", 
+  main: "#4caf50", 
+  dark: "#388e3c", 
+  darker: "#2e7d32", 
+  contrastText: "#fff", 
 };
 
 const GREY = {
