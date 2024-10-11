@@ -6,30 +6,30 @@ import {
 } from "@mui/material/styles";
 
 const PRIMARY = {
-  lighter: "#ffee58", 
-  light: "#fab950", 
-  main: "#303038	", 
-  dark: "#808080", 
-  darker: "#f57f17", 
-  contrastText: "#fff", 
+  lighter: "#ffee58",
+  light: "#fab950",
+  main: "#303038",
+  dark: "#808080",
+  darker: "#f57f17",
+  contrastText: "#fff",
 };
 
 const SECONDARY = {
-  lighter: "#fff3e0", 
-  light: "#ffcc80", 
-  main: "#fb8c00", 
-  dark: "#ef6c00", 
-  darker: "#e65100", 
-  contrastText: "#fff", 
+  lighter: "#fff3e0",
+  light: "#ffcc80",
+  main: "#fb8c00",
+  dark: "#ef6c00",
+  darker: "#e65100",
+  contrastText: "#fff",
 };
 
 const SUCCESS = {
-  lighter: "#e8f5e9", 
-  light: "#81c784", 
-  main: "#4caf50", 
-  dark: "#388e3c", 
-  darker: "#2e7d32", 
-  contrastText: "#fff", 
+  lighter: "#e8f5e9",
+  light: "#81c784",
+  main: "#4caf50",
+  dark: "#388e3c",
+  darker: "#2e7d32",
+  contrastText: "#fff",
 };
 
 const GREY = {

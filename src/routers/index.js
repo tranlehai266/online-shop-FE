@@ -38,8 +38,22 @@ function Router() {
             </AuthRequire>
           }
         />
-        <Route path="my-order" element={<OrderPage />} />
-        <Route path="cart" element={<CartPage />} />
+        <Route
+          path="my-order"
+          element={
+            <AuthRequire>
+              <OrderPage />
+            </AuthRequire>
+          }
+        />
+        <Route
+          path="cart"
+          element={
+            <AuthRequire>
+              <CartPage />
+            </AuthRequire>
+          }
+        />
         <Route path="shop" element={<Shop />} />
         <Route path="contact" element={<ContactPage />} />
         <Route

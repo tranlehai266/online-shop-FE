@@ -23,8 +23,11 @@ import { useEffect } from "react";
 import { Stack } from "@mui/material";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
-const pages = ["Home", "Shop"];
-
+const pages = [
+  { id: 1, name: "Home", path: "/" },
+  { id: 2, name: "Shop", path: "/shop" },
+  { id: 3, name: "Contact", path: "/contact" },
+];
 function MainHeader() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -79,7 +82,7 @@ function MainHeader() {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth", 
+      behavior: "smooth",
     });
   };
 
@@ -133,8 +136,15 @@ function MainHeader() {
               sx={{ display: { xs: "block", md: "none" } }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: "center" }}>{page}</Typography>
+                <MenuItem key={page.id} onClick={handleCloseNavMenu}>
+                  <Link
+                    to={page.path}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <Typography sx={{ textAlign: "center" }}>
+                      {page.name}
+                    </Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
