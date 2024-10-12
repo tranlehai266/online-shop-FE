@@ -19,6 +19,10 @@ import { toast } from "react-toastify";
 import useAuth from "../hooks/useAuth";
 import LoadingScreen from "../components/LoadingScreen";
 import NotFoundPage from "./NotFoundPage";
+import { addComment, getComments } from "../features/commentSlice";
+import { fDateTimeSuffix } from "../utils/formatTime";
+import { FTextField, FormProvider } from "../components/form";
+import { useForm } from "react-hook-form";
 
 const DetailPage = () => {
   const dispatch = useDispatch();
@@ -29,12 +33,36 @@ const DetailPage = () => {
   const productDetail = useSelector((state) => state.product.productDetail);
   const productIds = useSelector((state) => state.cart.productIds);
   const productCategory = useSelector((state) => state.product.productCategory);
+  const comments = useSelector((state) => state.comment.comments);
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
   const userId = user?._id;
+  console.log(comments);
+
+  const defaultValues = {
+    content: "",
+  };
+
+  const methods = useForm({
+    defaultValues,
+  });
+
+  const { handleSubmit, reset } = methods;
+
+  const onSubmit = async (data) => {
+    if (!isAuthenticated) {
+      toast.error("You need to login");
+      return;
+    }
+    dispatch(addComment({ productId: id, content: data.content }));
+    toast.success("Comment Success")
+    reset("");
+  };
+
   useEffect(() => {
     if (id) {
       setLoading(true);
+      dispatch(getComments(id));
       dispatch(getProductDetail(id)).then(() => {
         setLoading(false);
       });
@@ -200,6 +228,42 @@ const DetailPage = () => {
       </Box>
       <Divider sx={{ mt: "50px" }} />
       <Box mt="40px">
+        <Typography variant="h5" fontWeight="bold" mb={2}>
+          Reviews
+        </Typography>
+
+        {comments.length === 0 ? (
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+            There are no reviews yet.
+          </Typography>
+        ) : (
+          comments.map((cmt) => (
+            <Box
+              key={cmt._id}
+              sx={{ mb: 2, p: 2, border: "1px solid #e0e0e0", borderRadius: 2 }}
+            >
+              <Typography variant="body1" fontWeight="bold">
+                {cmt.userId.name}
+              </Typography>
+              <Typography variant="caption" color="text.secondary">
+                {fDateTimeSuffix(cmt.createdAt)}
+              </Typography>
+              <Typography variant="body1" color="text.secondary">
+                {cmt.content}
+              </Typography>
+            </Box>
+          ))
+        )}
+        <Box>
+          <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+            <FTextField name="content" label="Comment" />
+            <Button variant="contained" type="submit" sx={{ mt: "10px" }}>
+              Submit
+            </Button>
+          </FormProvider>
+        </Box>
+      </Box>
+      <Box mt="40px">
         <Typography variant="h4" textAlign="center" mt="20px" mb="20px">
           Related Products
         </Typography>
@@ -208,7 +272,7 @@ const DetailPage = () => {
             .filter((product) => product._id !== productDetail._id)
             .slice(0, 6)
             .map((product) => (
-              <Grid item xs={12} sm={6} md={4} key={product._id}>
+              <Grid item="true" xs={12} sm={6} md={4} key={product._id}>
                 <Card>
                   <CardMedia
                     component="img"
