@@ -13,7 +13,7 @@ import { getChartData } from "../../features/adminSlice";
 import { Container, Typography, Box, Card, CardContent } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import StoreIcon from "@mui/icons-material/Store";
-import CategoryIcon from '@mui/icons-material/Category';
+import CategoryIcon from "@mui/icons-material/Category";
 import { getCategory, getProducts } from "../../features/productSlice";
 
 function ChartsSetting() {
@@ -132,14 +132,24 @@ function ChartsSetting() {
         Statistical Chart
       </Typography>
       <Box display="flex" alignItems="center">
-        <LineChart width={600} height={300} data={defaultChartData}>
+        <LineChart width={1000} height={500} data={defaultChartData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="month" />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="linear" dataKey="count" stroke="#8884d8" />
-          <Line type="linear" dataKey="totalAmount" stroke="#82ca9d" />
+          <Line
+            type="linear"
+            strokeWidth={3}
+            dataKey="count"
+            stroke="#8884d8"
+          />
+          <Line
+            type="linear"
+            strokeWidth={3}
+            dataKey="totalAmount"
+            stroke="#82ca9d"
+          />
         </LineChart>
       </Box>
     </Container>
