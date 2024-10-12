@@ -8,7 +8,9 @@ Những tính năng này cải thiện trải nghiệm mua sắm, giúp người
 
 ### 1. Tài khoản cá nhân (User Account)
 
-- **Quản lý thông tin cá nhân**: Sau khi đăng nhập, người dùng có thể cập nhật và quản lý thông tin cá nhân như tên, địa chỉ email, địa chỉ giao hàng, và số điện thoại.
+- **Đăng nhập google**
+- **Quản lý thông tin cá nhân**
+- Sau khi đăng nhập, người dùng có thể cập nhật và quản lý thông tin cá nhân như tên, địa chỉ email, địa chỉ giao hàng, và số điện thoại.
 
 ### 2. Xem lịch sử đơn hàng (Order History)
 
