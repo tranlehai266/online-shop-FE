@@ -1,46 +1,37 @@
-# Getting Started with Create React App and Redux
+# Funio Store
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+Trang web **Funio** là một website bán hàng trực tuyến chuyên bán các sản phẩm nội thất. Dưới đây là các tính năng mà người dùng có thể trải nghiệm khi đăng nhập vào trang web này.
 
-## Available Scripts
+Những tính năng này cải thiện trải nghiệm mua sắm, giúp người dùng dễ dàng quản lý các đơn hàng và thông tin cá nhân của mình.
 
-In the project directory, you can run:
+## User Stories
 
-### `npm start`
+### 1. Tài khoản cá nhân (User Account)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Quản lý thông tin cá nhân**: Sau khi đăng nhập, người dùng có thể cập nhật và quản lý thông tin cá nhân như tên, địa chỉ email, địa chỉ giao hàng, và số điện thoại.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 2. Xem lịch sử đơn hàng (Order History)
 
-### `npm test`
+- **Theo dõi đơn hàng**: Người dùng có thể xem lịch sử mua hàng và tình trạng của các đơn hàng đã đặt (đã xử lý, đã hoàn thành).
+- **Chi tiết đơn hàng**: Cung cấp thông tin chi tiết về các sản phẩm đã mua, số lượng, giá cả và thời gian mua hàng.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 3. Giỏ hàng (Shopping Cart)
 
-### `npm run build`
+- **Thêm sản phẩm vào giỏ**: Người dùng có thể thêm sản phẩm vào giỏ hàng khi duyệt qua các danh mục.
+- **Chỉnh sửa giỏ hàng**: Sau khi thêm vào giỏ, họ có thể chỉnh sửa số lượng sản phẩm, xóa sản phẩm khỏi giỏ hàng hoặc tính toán lại tổng giá trị đơn hàng.
+- **Thanh toán**: Người dùng có thể thanh toán từ trang giỏ hàng và nhập thông tin thanh toán.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 4. Tùy chỉnh sản phẩm (Product Customization)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Đối với một số sản phẩm, người dùng có thể filter trực tiếp trên trang sản phẩm trước khi thêm vào giỏ hàng.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 5. Đánh giá sản phẩm (Product Reviews)
 
-### `npm run eject`
+Sau khi mua sản phẩm, người dùng có thể để lại đánh giá hoặc nhận xét về sản phẩm. Điều này giúp người dùng khác có thêm thông tin tham khảo trước khi mua.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 6. Hỗ trợ khách hàng (Contact Support)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Người dùng có thể liên hệ hỗ trợ thông qua hệ thống hỗ trợ trực tuyến, chat hoặc email.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### LINK 
+funio.netlify.app
