@@ -7,6 +7,7 @@ const initialState = {
   isLoading: false,
   error: null,
   carts: [],
+  chart: [],
 };
 
 const slice = createSlice({
@@ -34,6 +35,11 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.carts = action.payload;
+    },
+    getChartDataSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.chart = action.payload;
     },
   },
 });
@@ -101,5 +107,15 @@ export const contactMail =
       dispatch(slice.actions.hasError());
     }
   };
+
+export const getChartData = () => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const response = await apiService.get("/admin/chart");
+    dispatch(slice.actions.getChartDataSuccess(response.data.data));
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+  }
+};
 
 export default slice.reducer;

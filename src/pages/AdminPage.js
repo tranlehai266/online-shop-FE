@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, Tab, Box, Tabs, Typography } from "@mui/material";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import InsertChartIcon from '@mui/icons-material/InsertChart';
 import SellIcon from "@mui/icons-material/Sell";
 import StoreIcon from "@mui/icons-material/Store";
 import { capitalCase } from "change-case";
@@ -9,6 +10,7 @@ import UsersSetting from "../components/admin/UsersSetting";
 import ProductsSetting from "../components/admin/ProductsSetting";
 import CategoriesSetting from "../components/admin/CategoriesSetting";
 import ShoppingCartSetting from "../components/admin/ShoppingCartSetting";
+import ChartsSetting from "../components/admin/ChartsSetting";
 
 function AdminPage() {
   const [currentTab, setCurrentTab] = useState("Users");
@@ -33,6 +35,11 @@ function AdminPage() {
       value: "Shopping Cart",
       icon: <ShoppingCartIcon sx={{ fontSize: 30 }} />,
       component: <ShoppingCartSetting />,
+    },
+    {
+      value: "Charts",
+      icon: <InsertChartIcon sx={{ fontSize: 30 }} />,
+      component: <ChartsSetting />,
     },
   ];
 
