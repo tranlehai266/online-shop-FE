@@ -6,6 +6,7 @@ import {
   IconButton,
   InputAdornment,
   Container,
+  Box,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -138,21 +139,23 @@ function LoginPage() {
           >
             Create Account
           </LoadingButton>
-          <GoogleLogin
-            size="large"
-            theme="filled_black"
-            onSuccess={(credentialResponse) => {
-              const googleToken = credentialResponse.credential;
-              loginWithGoogle(googleToken, () => {
-                const from = location.state?.from?.pathname || "/";
-                navigate(from, { replace: true });
-              });
-              toast.success("Login Success")
-            }}
-            onError={() => {
-              console.log("Login Failed");
-            }}
-          />
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <GoogleLogin
+              size="large"
+              theme="filled_black"
+              onSuccess={(credentialResponse) => {
+                const googleToken = credentialResponse.credential;
+                loginWithGoogle(googleToken, () => {
+                  const from = location.state?.from?.pathname || "/";
+                  navigate(from, { replace: true });
+                });
+                toast.success("Login Success");
+              }}
+              onError={() => {
+                console.log("Login Failed");
+              }}
+            />
+          </Box>
           ;
         </Stack>
       </FormProvider>

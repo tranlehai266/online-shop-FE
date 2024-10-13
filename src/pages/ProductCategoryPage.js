@@ -154,7 +154,7 @@ const ProductCategoryPage = () => {
                   <Card
                     sx={{
                       boxShadow: 3,
-                      borderRadius: 2,
+                      borderRadius: 0,
                       transition: "transform 0.3s",
                       "&:hover": { transform: "scale(1.05)" },
                     }}
@@ -167,6 +167,7 @@ const ProductCategoryPage = () => {
                         width: "320px",
                         objectFit: "fill",
                         cursor: "pointer",
+                        border: "2px solid #000"
                       }}
                       image={product.image_url}
                       alt={product.name}

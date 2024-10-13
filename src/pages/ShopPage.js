@@ -70,7 +70,7 @@ const Shop = () => {
     setVisible((prev) => prev + 6);
   };
 
-  const getRatingByRating= (rating) => {
+  const getRatingByRating = (rating) => {
     if (rating >= 5) return 5;
     if (rating >= 4) return 4;
     if (rating >= 3) return 3;
@@ -150,7 +150,7 @@ const Shop = () => {
                   <Card
                     sx={{
                       boxShadow: 3,
-                      borderRadius: 2,
+                      borderRadius: 0,
                       transition: "transform 0.3s",
                       "&:hover": { transform: "scale(1.05)" },
                     }}
@@ -163,6 +163,7 @@ const Shop = () => {
                         width: "320px",
                         objectFit: "fill",
                         cursor: "pointer",
+                        border: "2px solid #000",
                       }}
                       image={product.image_url}
                       alt={product.name}

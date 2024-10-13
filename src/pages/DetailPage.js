@@ -55,7 +55,7 @@ const DetailPage = () => {
       return;
     }
     dispatch(addComment({ productId: id, content: data.content }));
-    toast.success("Comment Success")
+    toast.success("Comment Success");
     reset("");
   };
 
@@ -273,7 +273,7 @@ const DetailPage = () => {
             .slice(0, 6)
             .map((product) => (
               <Grid item="true" xs={12} sm={6} md={4} key={product._id}>
-                <Card>
+                <Card sx={{ borderRadius: 0 }}>
                   <CardMedia
                     component="img"
                     image={product.image_url}
@@ -283,6 +283,7 @@ const DetailPage = () => {
                       height: "250px",
                       cursor: "pointer",
                       objectFit: "fill",
+                      border: "2px solid #000",
                     }}
                     onClick={() => handleRelatedProductClick(product._id)}
                   />
