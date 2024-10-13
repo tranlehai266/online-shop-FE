@@ -263,6 +263,7 @@ const DetailPage = () => {
           </FormProvider>
         </Box>
       </Box>
+      <Divider sx={{ mt: "50px" }} />
       <Box mt="40px">
         <Typography variant="h4" textAlign="center" mt="20px" mb="20px">
           Related Products

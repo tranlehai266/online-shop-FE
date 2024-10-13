@@ -34,18 +34,18 @@ function ChartsSetting() {
   }, [dispatch]);
 
   const defaultChartData = [
-    { month: "2024-01", count: 2, totalAmount: 100 },
-    { month: "2024-02", count: 1, totalAmount: 50 },
-    { month: "2024-03", count: 5, totalAmount: 2100 },
-    { month: "2024-04", count: 3, totalAmount: 500 },
-    { month: "2024-05", count: 6, totalAmount: 800 },
-    { month: "2024-06", count: 2, totalAmount: 300 },
-    { month: "2024-07", count: 10, totalAmount: 5000 },
-    { month: "2024-08", count: 2, totalAmount: 250 },
-    { month: "2024-09", count: 5, totalAmount: 2000 },
-    { month: "2024-10", count: 0, totalAmount: 0 },
-    { month: "2024-11", count: 0, totalAmount: 0 },
-    { month: "2024-12", count: 0, totalAmount: 0 },
+    { month: "Jan", count: 2, totalAmount: 100 },
+    { month: "Feb", count: 1, totalAmount: 50 },
+    { month: "March", count: 5, totalAmount: 1135 },
+    { month: "Apr", count: 3, totalAmount: 500 },
+    { month: "May", count: 6, totalAmount: 800 },
+    { month: "Jun", count: 2, totalAmount: 300 },
+    { month: "Jul", count: 10, totalAmount: 1200 },
+    { month: "Aug", count: 2, totalAmount: 250 },
+    { month: "Sep", count: 5, totalAmount: 837 },
+    { month: "Oct", count: 0, totalAmount: 0 },
+    { month: "Nov", count: 0, totalAmount: 0 },
+    { month: "Dec", count: 0, totalAmount: 0 },
   ];
 
   chartData.forEach((data) => {
@@ -62,7 +62,7 @@ function ChartsSetting() {
 
   return (
     <Container>
-      <Box mb={2} display="flex">
+      <Box mb={2} display="flex" justifyContent="center">
         <Card
           sx={{
             minWidth: 150,
@@ -132,20 +132,25 @@ function ChartsSetting() {
         Statistical Chart
       </Typography>
       <Box display="flex" alignItems="center">
-        <LineChart width={1000} height={500} data={defaultChartData}>
+        <LineChart
+          width={1200}
+          height={500}
+          data={defaultChartData}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="month" />
           <YAxis />
           <Tooltip />
           <Legend />
           <Line
-            type="linear"
+            type="monotone"
             strokeWidth={3}
             dataKey="count"
             stroke="#8884d8"
           />
           <Line
-            type="linear"
+            type="monotone"
             strokeWidth={3}
             dataKey="totalAmount"
             stroke="#82ca9d"
