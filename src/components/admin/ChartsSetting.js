@@ -22,7 +22,7 @@ function ChartsSetting() {
   const users = useSelector((state) => state.admin.users);
   const products = useSelector((state) => state.product.products);
   const categories = useSelector((state) => state.product.categories);
-
+  console.log(chartData);
   const totalUsers = users.length;
   const totalProducts = products.length;
   const totalCategories = categories.length;
@@ -34,18 +34,18 @@ function ChartsSetting() {
   }, [dispatch]);
 
   const defaultChartData = [
-    { month: "Jan", count: 2, totalAmount: 100 },
-    { month: "Feb", count: 1, totalAmount: 50 },
-    { month: "March", count: 5, totalAmount: 1135 },
-    { month: "Apr", count: 3, totalAmount: 500 },
-    { month: "May", count: 6, totalAmount: 800 },
-    { month: "Jun", count: 2, totalAmount: 300 },
-    { month: "Jul", count: 10, totalAmount: 1200 },
-    { month: "Aug", count: 2, totalAmount: 250 },
-    { month: "Sep", count: 5, totalAmount: 837 },
-    { month: "Oct", count: 0, totalAmount: 0 },
-    { month: "Nov", count: 0, totalAmount: 0 },
-    { month: "Dec", count: 0, totalAmount: 0 },
+    { month: "2024-01", count: 2, totalAmount: 100 },
+    { month: "2024-02", count: 1, totalAmount: 50 },
+    { month: "2024-03", count: 5, totalAmount: 1135 },
+    { month: "2024-04", count: 3, totalAmount: 500 },
+    { month: "2024-05", count: 6, totalAmount: 800 },
+    { month: "2024-06", count: 2, totalAmount: 300 },
+    { month: "2024-07", count: 10, totalAmount: 1200 },
+    { month: "2024-08", count: 2, totalAmount: 250 },
+    { month: "2024-09", count: 5, totalAmount: 837 },
+    { month: "2024-10", count: 0, totalAmount: 0 },
+    { month: "2024-11", count: 0, totalAmount: 0 },
+    { month: "2024-12", count: 0, totalAmount: 0 },
   ];
 
   chartData.forEach((data) => {
