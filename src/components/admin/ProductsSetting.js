@@ -266,7 +266,7 @@ function ProductsSetting() {
               <FTextField name="name" label="Product name" fullWidth />
               <FTextField name="price" label="Price" fullWidth />
               <FTextField name="old_price" label="Old Price" fullWidth />
-              <FTextField name="item_id" label="Item Id" fullWidth />
+              <FTextField name="item_id" label="SKU" fullWidth />
               <FTextField name="description" label="description" fullWidth />
               <FormControl fullWidth>
                 <InputLabel>Category</InputLabel>
