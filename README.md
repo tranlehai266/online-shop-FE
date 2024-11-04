@@ -39,3 +39,4 @@ Người dùng có thể liên hệ hỗ trợ thông qua hệ thống hỗ tr�
 
 ## **Demo**
 [**Live Demo**](https://funio.netlify.app)
+Để xem demo trực tiếp, bạn cần đợi backend chạy hoàn tất. Thời gian chờ có thể từ 1 đến 2 phút.
