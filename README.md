@@ -53,18 +53,12 @@ Funio Store là một website bán hàng trực tuyến chuyên cung cấp các 
 6. **Hỗ trợ khách hàng (Customer Support)**
    - Quản lý yêu cầu hỗ trợ từ người dùng.
 
-## Cài đặt
+## **Demo**
+[**Live Demo**](https://funio.netlify.app)
+Để xem demo trực tiếp cho phần quản trị, bạn cần đợi backend chạy hoàn tất. Thời gian chờ có thể từ 1 đến 2 phút.
 
-### Yêu cầu
-
-- Node.js
-- MongoDB
-- NPM hoặc Yarn
-
-### Hướng dẫn cài đặt
 
 1. **Clone dự án**:
 
    ```bash
-   git clone [https://github.com/your-username/funio-store.git](https://github.com/tranlehai266/online-shop-FE)
-   cd funio-store
+   git clone https://github.com/your-username/funio-store.git](https://github.com/tranlehai266/online-shop-FE
