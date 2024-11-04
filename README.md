@@ -66,5 +66,5 @@ Funio Store là một website bán hàng trực tuyến chuyên cung cấp các 
 1. **Clone dự án**:
 
    ```bash
-   git clone https://github.com/your-username/funio-store.git
+   git clone [https://github.com/your-username/funio-store.git](https://github.com/tranlehai266/online-shop-FE)
    cd funio-store
